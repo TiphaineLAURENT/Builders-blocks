@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "chiselforfabric",
-    "version": "${version}",
+    "version": "1.16.3.a1",
 
     "name": "Chisel for fabric",
     "description": "This is an example description! Tell everyone what your mod is about!",

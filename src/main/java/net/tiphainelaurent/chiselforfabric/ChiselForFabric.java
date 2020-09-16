@@ -1,29 +1,25 @@
 package net.tiphainelaurent.chiselforfabric;
 
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 
-import me.orangemonkey68.injectablerecipes.RecipeHolder;
+import net.tiphainelaurent.chiselforfabric.blocks.andesite.AndesiteFamily;
 
-public class ChiselForFabric implements ModInitializer, RecipeHolder
+public class ChiselForFabric implements ModInitializer
 {
 	public static final String MOD_ID = "chiselforfabric";
-
-	private static final Map<RecipeType<?>, Map<Identifier, Recipe<?>>> recipes = new HashMap<>();
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "general"))
+ 																	 .icon(() -> new ItemStack(Items.STONE))
+																	 .build();
 
 	@Override
 	public void onInitialize()
 	{
+		AndesiteFamily.registerAll(ITEM_GROUP);
 	}
-
-    @Override
-	public Map<RecipeType<?>, Map<Identifier, Recipe<?>>> getRecipes()
-	{
-        return recipes;
-    }
 }

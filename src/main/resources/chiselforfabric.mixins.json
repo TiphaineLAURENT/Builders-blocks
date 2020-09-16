@@ -4,9 +4,7 @@
     "package": "net.tiphainelaurent.chiselforfabric.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [],
-    "client": [
-        "ExampleMixin"
-    ],
+    "client": [],
     "injectors": {
         "defaultRequire": 1
     }

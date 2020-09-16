@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "chiselforfabric:block/andesite/braid"
+    }
+}
