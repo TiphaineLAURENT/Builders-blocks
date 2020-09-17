@@ -23,8 +23,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// include "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
-	// modImplementation "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
+	include "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
+	modImplementation "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
 
 	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }

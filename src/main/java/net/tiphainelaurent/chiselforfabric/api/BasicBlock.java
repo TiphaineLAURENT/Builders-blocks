@@ -8,16 +8,23 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BasicBlock extends Block {
-    public BasicBlock(Settings settings) {
+    private final Identifier identifier;
+
+    public BasicBlock(final Settings settings) {
         super(settings);
+        identifier = new Identifier(getTranslationKey());
     }
 
-    public Identifier getIdentifier()
-    {
-        return new Identifier(getTranslationKey());
+    public BasicBlock(final Identifier identifier_, final Settings settings) {
+        super(settings);
+        identifier = identifier_;
     }
 
-    public void register(ItemGroup itemGroup)
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+
+    public void register(final ItemGroup itemGroup)
     {
         Registry.register(Registry.BLOCK, getIdentifier(), this);
 
