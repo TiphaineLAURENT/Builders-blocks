@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 import net.tiphainelaurent.chiselforfabric.api.BasicBlock;
 
-public class AndesiteFamily implements
+public class AndesiteFamily
 {
     static final BasicBlock[] blocks = {
         new BasicBlock(new Identifier(ChiselForFabric.MOD_ID, "braid"), FabricBlockSettings.copy(Blocks.ANDESITE)),
