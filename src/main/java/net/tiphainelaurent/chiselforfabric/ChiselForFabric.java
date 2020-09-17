@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -22,6 +21,7 @@ public class ChiselForFabric implements ModInitializer
 																	 .build();
 	
 	public static Path MAIN_DIRECTORY;
+	public static final AndesiteFamily andesiteFamily = new AndesiteFamily();
 
 	@Override
 	public void onInitialize()
@@ -31,6 +31,6 @@ public class ChiselForFabric implements ModInitializer
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		AndesiteFamily.registerAll(ITEM_GROUP);
+		andesiteFamily.registerAll(ITEM_GROUP);
 	}
 }

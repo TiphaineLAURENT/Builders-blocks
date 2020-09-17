@@ -23,6 +23,8 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.LootConditionConsumingBuilder;
 import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
@@ -89,7 +91,7 @@ public class BasicBlock extends Block {
 
     public BasicBlock writeBlockStates()
     {
-        write("/assets/chiselforfabric/blockstates/", String.format("{\"variants\": {\"\": {\"model\": \"chiselforfabric:block/%s\"}}}", getIdentifier().getPath()));
+        write("/assets/chiselforfabric/blockstates", String.format("{\"variants\": {\"\": {\"model\": \"chiselforfabric:block/%s\"}}}", getIdentifier().getPath()));
         return this;
     }
 
@@ -104,4 +106,9 @@ public class BasicBlock extends Block {
         write("/assets/chiselforfabric/models/item", String.format("{\"parent\": \"chiselforfabric:block/%s\"}", getIdentifier().getPath()));
         return this;
     }
+
+    // public BasicBlock writeRecipe(final CraftingRecipe recipe)
+    // {
+    //     write("/data/chiselforfabric/recipes", RecipeManager.)
+    // }
 }
