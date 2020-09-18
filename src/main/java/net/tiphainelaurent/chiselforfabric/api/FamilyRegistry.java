@@ -1,45 +1,44 @@
-// package net.tiphainelaurent.chiselforfabric.api;
+package net.tiphainelaurent.chiselforfabric.api;
 
-// import java.util.Set;
+import java.util.Set;
 
-// public abstract class FamilyRegistry {
-//     abstract public Set<BasicBlock> getBlocks();
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-//     public void registerAll(final ItemGroup group)
-//     {
-//         final String andesite = Registry.ITEM.getId(Items.ANDESITE).getPath();
+public abstract class FamilyRegistry {
+    private static final String namespace = "minecraft";
 
-//         for (BasicBlock block : getBlocks())
-//         {
-//             block.register(group);
-//             block.write(block.asLootTable().build())
-//                  .writeBlockStates()
-//                  .writeModel()
-//                  .writeItem()
-//                  .writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
-//                     "Chisel",
-//                     Ingredient.ofItems(Items.ANDESITE),
-//                     new ItemStack(block)));
+    abstract public Set<BasicBlock> getBlocks();
+    abstract public Recipe<?> getRecipe(final BasicBlock current);
+    abstract public Recipe<?> getReversedRecipe(final BasicBlock parent, final BasicBlock current);
 
-//             for (BasicBlock reverseBlock : blocks)
-//             {
-//                 if (reverseBlock.is(block))
-//                 {
-//                     reverseBlock.writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
-//                         "Chisel",
-//                         Ingredient.ofItems(block),
-//                         new ItemStack(Items.ANDESITE)
-//                         ));
-//                 }
-//                 else
-//                 {
-//                     reverseBlock.writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
-//                         "Chisel",
-//                         Ingredient.ofItems(reverseBlock),
-//                         new ItemStack(block)
-//                         ));
-//                 }
-//             }
-//         }
-//     }
-// }
+    public String getNamespace()
+    {
+        return namespace;
+    }
+
+    public void registerAll(final ItemGroup group)
+    {
+        final Set<BasicBlock> blocks = getBlocks();
+        for (BasicBlock block : blocks)
+        {
+            block.register(group);
+            block.write(block.asLootTable().build())
+                 .writeBlockStates()
+                 .writeModel()
+                 .writeItem()
+                 .writeRecipe(getRecipe(block));
+
+            for (BasicBlock reverseBlock : blocks)
+            {
+                reverseBlock.writeRecipe(getRecipe(reverseBlock));
+            }
+        }
+    }
+}

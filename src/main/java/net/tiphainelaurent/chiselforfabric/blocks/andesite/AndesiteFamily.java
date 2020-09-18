@@ -3,10 +3,11 @@ package net.tiphainelaurent.chiselforfabric.blocks.andesite;
 import java.util.Set;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -15,9 +16,16 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 import net.tiphainelaurent.chiselforfabric.api.BasicBlock;
+import net.tiphainelaurent.chiselforfabric.api.FamilyRegistry;
 
-public class AndesiteFamily
+public class AndesiteFamily extends FamilyRegistry
 {
+    private static final Set<Item> ancestors = Set.of(
+        Items.ANDESITE,
+        Items.POLISHED_ANDESITE
+    );
+    private final String andesite = Registry.ITEM.getId(Items.ANDESITE).getPath();
+
     private static final Set<BasicBlock> blocks = Set.of(
         new BasicBlock(new Identifier(ChiselForFabric.MOD_ID, "braid"), FabricBlockSettings.copy(Blocks.ANDESITE)),
         new BasicBlock(new Identifier(ChiselForFabric.MOD_ID, "bricks-cracked"), FabricBlockSettings.copy(Blocks.ANDESITE)),
@@ -49,41 +57,37 @@ public class AndesiteFamily
         new BasicBlock(new Identifier(ChiselForFabric.MOD_ID, "weaver"), FabricBlockSettings.copy(Blocks.ANDESITE))
     );
 
-    public void registerAll(final ItemGroup group)
+    public Set<BasicBlock> getBlocks()
     {
-        final String andesite = Registry.ITEM.getId(Items.ANDESITE).getPath();
+        return blocks;
+    }
 
-        for (BasicBlock block : blocks)
-        {
-            block.register(group);
-            block.write(block.asLootTable().build())
-                 .writeBlockStates()
-                 .writeModel()
-                 .writeItem()
-                 .writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
+    public Recipe<?> getRecipe(final BasicBlock current)
+    {
+        return new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, current.getIdentifier().getPath())),
                     "Chisel",
                     Ingredient.ofItems(Items.ANDESITE),
-                    new ItemStack(block)));
+                    new ItemStack(current)
+                    );
+    }
 
-            for (BasicBlock reverseBlock : blocks)
-            {
-                if (reverseBlock.is(block))
-                {
-                    reverseBlock.writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
-                        "Chisel",
-                        Ingredient.ofItems(block),
-                        new ItemStack(Items.ANDESITE)
-                        ));
-                }
-                else
-                {
-                    reverseBlock.writeRecipe(new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, block.getIdentifier().getPath())),
-                        "Chisel",
-                        Ingredient.ofItems(reverseBlock),
-                        new ItemStack(block)
-                        ));
-                }
-            }
+    public Recipe<?> getReversedRecipe(final BasicBlock parent, final BasicBlock current)
+    {
+        if (parent.is(current))
+        {
+            return new StonecuttingRecipe(new Identifier(getNamespace(), String.format("stonecutting-%s_ot_%s", andesite, parent.getIdentifier().getPath())),
+                "Chisel",
+                Ingredient.ofItems(parent),
+                new ItemStack(Items.ANDESITE)
+                );
+        }
+        else
+        {
+            return new StonecuttingRecipe(new Identifier(getNamespace(), String.format("stonecutting-%s_ot_%s", andesite, parent.getIdentifier().getPath())),
+                "Chisel",
+                Ingredient.ofItems(current),
+                new ItemStack(parent)
+                );
         }
     }
 }
