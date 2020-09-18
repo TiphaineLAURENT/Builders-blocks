@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.model.Texture;
 import net.minecraft.util.Identifier;

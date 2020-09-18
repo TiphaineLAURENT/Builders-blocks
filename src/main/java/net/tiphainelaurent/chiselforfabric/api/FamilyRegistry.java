@@ -21,10 +21,10 @@ public abstract class FamilyRegistry {
     public void registerAll(final ItemGroup group)
     {
         final Set<BasicBlock> blocks = getBlocks();
-        for (BasicBlock block : blocks)
+        for (final BasicBlock block : blocks)
         {
             final Identifier blockId = block.getIdentifier();
-            Helpers.Item.builder().block(block)
+            Item.builder().block(block)
                                   .namespace(blockId.getNamespace())
                                   .name(blockId.getPath())
                                   .group(group)
@@ -35,7 +35,7 @@ public abstract class FamilyRegistry {
                  .writeModel()
                  .writeRecipe(getRecipe(block));
 
-            for (BasicBlock reverseBlock : blocks)
+            for (final BasicBlock reverseBlock : blocks)
             {
                 reverseBlock.writeRecipe(getRecipe(reverseBlock));
             }
