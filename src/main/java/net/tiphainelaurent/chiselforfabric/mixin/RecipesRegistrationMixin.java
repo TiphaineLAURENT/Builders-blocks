@@ -23,7 +23,7 @@ import net.minecraft.util.profiler.Profiler;
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 
 @Mixin(RecipeManager.class)
-public class RecipesMixin
+public class RecipesRegistrationMixin
 {
 	@Shadow
 	private boolean errored;

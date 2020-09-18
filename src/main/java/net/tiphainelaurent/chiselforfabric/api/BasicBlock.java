@@ -48,11 +48,7 @@ public class BasicBlock extends Block {
     public void register(final ItemGroup itemGroup)
     {
         Registry.register(Registry.BLOCK, getIdentifier(), this);
-
-        final Item item = new BlockItem(this, new Item.Settings().group(itemGroup));
-        Registry.register(Registry.ITEM, getIdentifier(), item);
     }
-
 
     private <T> T addSurvivesExplosionCondition(final ItemConvertible drop, final LootConditionConsumingBuilder<T> builder)
     {
