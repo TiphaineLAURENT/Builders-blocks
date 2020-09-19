@@ -11,7 +11,6 @@ import net.minecraft.data.client.model.Models;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
-import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemGroup;
@@ -64,6 +63,7 @@ public class Item
         {
             net.minecraft.item.Item item = createItem();
             Registry.register(Registry.ITEM, new Identifier(namespace, name), item);
+
             return item;
         }
 

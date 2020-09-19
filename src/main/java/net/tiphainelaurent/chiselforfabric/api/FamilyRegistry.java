@@ -30,7 +30,7 @@ public abstract class FamilyRegistry {
                  .namespace(namespace)
                  .name(blockName)
                  .build();
-            net.minecraft.item.Item item = Item.builder()
+            Item.builder()
                 .block(block)
                 .namespace(namespace)
                 .name(blockName)

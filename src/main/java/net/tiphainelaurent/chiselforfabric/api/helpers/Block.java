@@ -74,6 +74,7 @@ public class Block
         private final FabricBlockSettings settings;
         private String namespace = "minecraft";
         private String name;
+        private boolean mineable = false;
 
         public Builder(final Material material)
         {
@@ -110,6 +111,13 @@ public class Block
 
         public Block.Builder name(final String name_) {
             name = name_;
+            return this;
+        }
+
+        @Deprecated
+        public Block.Builder mineable()
+        {
+            mineable = true;
             return this;
         }
 
