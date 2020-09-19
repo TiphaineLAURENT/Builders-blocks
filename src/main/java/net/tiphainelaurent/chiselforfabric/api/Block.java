@@ -11,6 +11,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.function.ToIntFunction;
 
@@ -41,6 +42,8 @@ public class Block
     public static class Builder
     {
         private final FabricBlockSettings settings;
+        private String namespace = "minecraft";
+        private String name;
 
         public Builder(final Material material)
         {
@@ -64,7 +67,21 @@ public class Block
 
         public net.minecraft.block.Block build()
         {
-            return new net.minecraft.block.Block(settings);
+            net.minecraft.block.Block block = new net.minecraft.block.Block(settings);
+            Registry.register(Registry.BLOCK, new Identifier(namespace, name), block);
+            return block;
+        }
+
+        public Block.Builder namespace(final String namespace_)
+        {
+            namespace = namespace_;
+            return this;
+        }
+
+        public Block.Builder name(final String name_)
+        {
+            name = name_;
+            return this;
         }
 
         public Block.Builder air()

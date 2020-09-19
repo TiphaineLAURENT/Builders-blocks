@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
@@ -43,11 +42,6 @@ public class BasicBlock extends Block {
 
     public Identifier getIdentifier() {
         return identifier;
-    }
-
-    public void register(final ItemGroup itemGroup)
-    {
-        Registry.register(Registry.BLOCK, getIdentifier(), this);
     }
 
     private <T> T addSurvivesExplosionCondition(final ItemConvertible drop, final LootConditionConsumingBuilder<T> builder)
