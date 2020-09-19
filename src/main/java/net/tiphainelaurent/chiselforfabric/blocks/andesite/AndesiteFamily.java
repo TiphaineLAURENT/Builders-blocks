@@ -58,7 +58,6 @@ public class AndesiteFamily extends FamilyRegistry
     @Override
     public Set<Identifier> getBlocks()
     {
-        System.out.println(blocks);
         return blocks;
     }
 
@@ -66,12 +65,6 @@ public class AndesiteFamily extends FamilyRegistry
     public Block getAncestor()
     {
         return Blocks.ANDESITE;
-    }
-
-    @Override
-    public String getNamespace()
-    {
-        return ChiselForFabric.MOD_ID;
     }
 
     @Override
@@ -89,15 +82,15 @@ public class AndesiteFamily extends FamilyRegistry
     {
         if (parent.is(current))
         {
-            return new StonecuttingRecipe(new Identifier(getNamespace(), String.format("stonecutting-%s_ot_%s", andesite, Registry.BLOCK.getId(current).getPath())),
+            return new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", Registry.BLOCK.getId(current).getPath(), andesite)),
                 "Chisel",
-                Ingredient.ofItems(parent),
+                Ingredient.ofItems(current),
                 new ItemStack(Items.ANDESITE)
                 );
         }
         else
         {
-            return new StonecuttingRecipe(new Identifier(getNamespace(), String.format("stonecutting-%s_ot_%s", andesite, Registry.BLOCK.getId(current).getPath())),
+            return new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", Registry.BLOCK.getId(current).getPath(), Registry.BLOCK.getId(parent).getPath())),
                 "Chisel",
                 Ingredient.ofItems(current),
                 new ItemStack(parent)

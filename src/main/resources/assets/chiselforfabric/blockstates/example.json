@@ -1,7 +1,7 @@
 {
     "variants": {
         "": {
-            "model": "chiselforfabric:block/andesite/braid"
+            "model": "chiselforfabric:block/example"
         }
     }
 }

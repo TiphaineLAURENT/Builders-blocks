@@ -11,6 +11,7 @@ import net.minecraft.data.client.model.Models;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemGroup;
@@ -40,24 +41,28 @@ public class Item
         private String namespace = "minecraft";
         private String name;
 
-        public net.minecraft.item.Item build()
+        private net.minecraft.item.Item createItem()
         {
-            net.minecraft.item.Item item;
             switch (type)
             {
                 case BLOCK:
-                    item = new BlockItem(block, settings);
+                    net.minecraft.item.Item item = new BlockItem(block, settings);
                     ITEMS.computeIfAbsent(Models.CUBE_ALL, (itemModel) -> {
                         return new LinkedList<net.minecraft.item.Item>();
                     }).add(item);
-                    break;
+                    return item;
                 default:
                     item =  new net.minecraft.item.Item(settings);
                     ITEMS.computeIfAbsent(Models.GENERATED, (itemModel) -> {
                         return new LinkedList<net.minecraft.item.Item>();
                     }).add(item);
-                    break;
+                    return item;
             }
+        }
+
+        public net.minecraft.item.Item build()
+        {
+            net.minecraft.item.Item item = createItem();
             Registry.register(Registry.ITEM, new Identifier(namespace, name), item);
             return item;
         }

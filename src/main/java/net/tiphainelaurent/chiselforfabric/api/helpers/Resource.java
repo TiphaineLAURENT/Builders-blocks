@@ -1,34 +1,16 @@
-package net.tiphainelaurent.chiselforfabric.api;
+package net.tiphainelaurent.chiselforfabric.api.helpers;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import net.minecraft.block.Block;
 import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootTable;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.util.Identifier;
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 
-public class BasicBlock extends Block {
-    private final Identifier identifier;
-
-    public BasicBlock(final Settings settings) {
-        super(settings);
-        identifier = new Identifier(getTranslationKey());
-    }
-
-    public BasicBlock(final Identifier identifier_, final Settings settings) {
-        super(settings);
-        identifier = identifier_;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
-    }
-
+public class Resource {
     public static void write(final String relativePath, final String name, final String object)
     {
         try {
@@ -36,7 +18,7 @@ public class BasicBlock extends Block {
             Files.createDirectories(directoryPath);
             Files.writeString(directoryPath.resolve(String.format("%s.json", name)), object, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            System.out.println(e);
+            ChiselForFabric.LOGGER.error(e);
         }
     }
 

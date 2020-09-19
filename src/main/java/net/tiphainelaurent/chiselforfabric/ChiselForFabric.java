@@ -1,10 +1,13 @@
 package net.tiphainelaurent.chiselforfabric;
 
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +19,9 @@ import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.tiphainelaurent.chiselforfabric.api.helpers.Block;
+import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 import net.tiphainelaurent.chiselforfabric.blocks.andesite.AndesiteFamily;
 
 public class ChiselForFabric implements ModInitializer
@@ -30,16 +35,29 @@ public class ChiselForFabric implements ModInitializer
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static Map<Identifier, Recipe<?>> RECIPES = new HashMap<>();
 
+	private static final AndesiteFamily andesite = new AndesiteFamily();
+
+	public static final net.minecraft.block.Block EXAMPLE_BLOCK = Block.builder(Blocks.ANDESITE)
+																		//.mineable()
+																		.namespace(MOD_ID)
+																		.name("example")
+																		.build();
+
 	@Override
 	public void onInitialize()
 	{
-		LOGGER.info("initialize");
+		Item.builder()
+			.block(EXAMPLE_BLOCK)
+			.namespace(MOD_ID)
+			.name("example")
+			.group(ITEM_GROUP)
+			.build();
+
 		try {
 			MAIN_DIRECTORY = Paths.get(ChiselForFabric.class.getClassLoader().getResource("").toURI());
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}
-		LOGGER.info("registering");
-		new AndesiteFamily().registerAll(ITEM_GROUP);
+		andesite.registerAll(ITEM_GROUP);
 	}
 }
