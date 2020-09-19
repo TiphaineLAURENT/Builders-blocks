@@ -2,23 +2,35 @@ package net.tiphainelaurent.chiselforfabric.api;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.AbstractBlock.ContextPredicate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.loot.ConstantLootTableRange;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.condition.LootConditionConsumingBuilder;
+import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.Set;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class Block
 {
+    public static final Set<Item> EXPLOSION_IMMUNE = Set.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).stream().map(ItemConvertible::asItem).collect(Collectors.toSet());
+
     public static Builder builder(final Material material)
     {
         return new Builder(material);
@@ -44,6 +56,7 @@ public class Block
         private final FabricBlockSettings settings;
         private String namespace = "minecraft";
         private String name;
+        private LootTable.Builder lootTable;
 
         public Builder(final Material material)
         {
@@ -65,206 +78,196 @@ public class Block
             settings = FabricBlockSettings.copyOf(block);
         }
 
+        private <T> T addSurvivesExplosionCondition(final ItemConvertible drop, final LootConditionConsumingBuilder<T> builder)
+        {
+            return !EXPLOSION_IMMUNE.contains(drop.asItem())
+                    ? builder.conditionally(SurvivesExplosionLootCondition.builder())
+                    : builder.getThis();
+        }
+    
         public net.minecraft.block.Block build()
         {
-            net.minecraft.block.Block block = new net.minecraft.block.Block(settings);
+            final net.minecraft.block.Block block = new net.minecraft.block.Block(settings);
             Registry.register(Registry.BLOCK, new Identifier(namespace, name), block);
+
+            if (lootTable != null)
+            {
+                lootTable.pool(addSurvivesExplosionCondition(block,
+                                                             LootPool.builder()
+                                                                     .rolls(ConstantLootTableRange.create(1))
+                                                                     .with(ItemEntry.builder(block))))
+                         .build();
+            }
+
             return block;
         }
 
-        public Block.Builder namespace(final String namespace_)
-        {
+        public Block.Builder namespace(final String namespace_) {
             namespace = namespace_;
             return this;
         }
 
-        public Block.Builder name(final String name_)
-        {
+        public Block.Builder name(final String name_) {
             name = name_;
             return this;
         }
 
-        public Block.Builder air()
-        {
+        public Block.Builder air() {
             settings.air();
             return this;
         }
 
-        public Block.Builder allowsSpawning(AbstractBlock.TypedContextPredicate<EntityType<?>> predicate)
-        {
+        public Block.Builder allowsSpawning(final AbstractBlock.TypedContextPredicate<EntityType<?>> predicate) {
             settings.allowsSpawning(predicate);
             return this;
         }
 
-        public Block.Builder blockVision(ContextPredicate predicate)
-        {
+        public Block.Builder blockVision(final ContextPredicate predicate) {
             settings.blockVision(predicate);
             return this;
         }
 
-        public Block.Builder breakByHand(boolean breakByHand)
-        {
+        public Block.Builder breakByHand(final boolean breakByHand) {
             settings.breakByHand(breakByHand);
             return this;
         }
 
-        public Block.Builder breakByTool(Tag<Item> tag, int miningLevel)
-        {
+        public Block.Builder breakByTool(final Tag<Item> tag, final int miningLevel) {
             settings.breakByTool(tag, miningLevel);
             return this;
         }
 
-        public Block.Builder breakByTool(Tag<Item> tag)
-        {
+        public Block.Builder breakByTool(final Tag<Item> tag) {
             settings.breakByTool(tag);
             return this;
         }
 
-        public Block.Builder breakInstantly()
-        {
+        public Block.Builder breakInstantly() {
             settings.breakInstantly();
             return this;
         }
 
-        public Block.Builder collidable(boolean collidable)
-        {
+        public Block.Builder collidable(final boolean collidable) {
             settings.collidable(collidable);
             return this;
         }
 
-        public Block.Builder drops(Identifier dropTableId)
-        {
+        public Block.Builder mineable() {
+            lootTable = LootTable.builder();
+            return this;
+        }
+
+        public Block.Builder drops(final Identifier dropTableId) {
             settings.drops(dropTableId);
             return this;
         }
 
-        public Block.Builder dropsLike(net.minecraft.block.Block block)
-        {
+        public Block.Builder dropsLike(final net.minecraft.block.Block block) {
             settings.dropsLike(block);
             return this;
         }
 
-        public Block.Builder dynamicBounds()
-        {
+        public Block.Builder dynamicBounds() {
             settings.dynamicBounds();
             return this;
         }
 
-        public Block.Builder emissiveLightning(ContextPredicate predicate)
-        {
+        public Block.Builder emissiveLightning(final ContextPredicate predicate) {
             settings.emissiveLighting(predicate);
             return this;
         }
 
-        public Block.Builder hardness(float hardness)
-        {
+        public Block.Builder hardness(final float hardness) {
             settings.hardness(hardness);
             return this;
         }
 
-        public Block.Builder jumpVelocityMultiplier(float jumpVelocityMultiplier)
-        {
+        public Block.Builder jumpVelocityMultiplier(final float jumpVelocityMultiplier) {
             settings.jumpVelocityMultiplier(jumpVelocityMultiplier);
             return this;
         }
 
-        public Block.Builder lightLevel(int lightLevel)
-        {
+        public Block.Builder lightLevel(final int lightLevel) {
             settings.lightLevel(lightLevel);
             return this;
         }
 
-        public Block.Builder lightLevel(ToIntFunction<BlockState> levelFunction)
-        {
+        public Block.Builder lightLevel(final ToIntFunction<BlockState> levelFunction) {
             settings.lightLevel(levelFunction);
             return this;
         }
 
-        public Block.Builder materialColor(DyeColor color)
-        {
+        public Block.Builder materialColor(final DyeColor color) {
             settings.materialColor(color);
             return this;
         }
 
-        public Block.Builder materialColor(MaterialColor color)
-        {
+        public Block.Builder materialColor(final MaterialColor color) {
             settings.materialColor(color);
             return this;
         }
 
-        public Block.Builder noCollision()
-        {
+        public Block.Builder noCollision() {
             settings.noCollision();
             return this;
         }
 
-        public Block.Builder nonOpaque()
-        {
+        public Block.Builder nonOpaque() {
             settings.nonOpaque();
             return this;
         }
 
-        public Block.Builder postProcess(ContextPredicate predicate)
-        {
+        public Block.Builder postProcess(final ContextPredicate predicate) {
             settings.postProcess(predicate);
             return this;
         }
 
-        public Block.Builder requiresTool()
-        {
+        public Block.Builder requiresTool() {
             settings.requiresTool();
             return this;
         }
 
-        public Block.Builder resistances(float resistance)
-        {
+        public Block.Builder resistances(final float resistance) {
             settings.resistance(resistance);
             return this;
         }
 
-        public Block.Builder slipperiness(float value)
-        {
+        public Block.Builder slipperiness(final float value) {
             settings.slipperiness(value);
             return this;
         }
 
-        public Block.Builder solidBlock(ContextPredicate predicate)
-        {
+        public Block.Builder solidBlock(final ContextPredicate predicate) {
             settings.solidBlock(predicate);
             return this;
         }
 
-        public Block.Builder sounds(BlockSoundGroup group)
-        {
+        public Block.Builder sounds(final BlockSoundGroup group) {
             settings.sounds(group);
             return this;
         }
 
-        public Block.Builder strength(float hardness, float resistance)
-        {
+        public Block.Builder strength(final float hardness, final float resistance) {
             settings.strength(hardness, resistance);
             return this;
         }
 
-        public Block.Builder strength(float strength)
-        {
+        public Block.Builder strength(final float strength) {
             settings.strength(strength);
             return this;
         }
 
-        public Block.Builder suffocates(ContextPredicate predicate)
-        {
+        public Block.Builder suffocates(final ContextPredicate predicate) {
             settings.suffocates(predicate);
             return this;
         }
 
-        public Block.Builder tickRandomly()
-        {
+        public Block.Builder tickRandomly() {
             settings.ticksRandomly();
             return this;
         }
 
-        public Block.Builder velocityMultiplier(float velocityMultiplier)
+        public Block.Builder velocityMultiplier(final float velocityMultiplier)
         {
             settings.velocityMultiplier(velocityMultiplier);
             return this;

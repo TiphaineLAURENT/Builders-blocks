@@ -51,7 +51,7 @@ public class Item
                         return new LinkedList<net.minecraft.item.Item>();
                     }).add(item);
                     break;
-                    default:
+                default:
                     item =  new net.minecraft.item.Item(settings);
                     ITEMS.computeIfAbsent(Models.GENERATED, (itemModel) -> {
                         return new LinkedList<net.minecraft.item.Item>();

@@ -1,5 +1,7 @@
 package net.tiphainelaurent.chiselforfabric.api;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import net.minecraft.item.ItemGroup;
@@ -9,9 +11,10 @@ import net.minecraft.util.Identifier;
 public abstract class FamilyRegistry {
     private static final String namespace = "minecraft";
 
-    abstract public Set<BasicBlock> getBlocks();
-    abstract public Recipe<?> getRecipe(final BasicBlock current);
-    abstract public Recipe<?> getReversedRecipe(final BasicBlock parent, final BasicBlock current);
+    abstract public Set<Identifier> getBlocks();
+    abstract public net.minecraft.block.Block getAncestor();
+    abstract public Recipe<?> getRecipe(final net.minecraft.block.Block current);
+    abstract public Recipe<?> getReversedRecipe(final net.minecraft.block.Block parent, final net.minecraft.block.Block current);
 
     public String getNamespace()
     {
@@ -20,25 +23,35 @@ public abstract class FamilyRegistry {
 
     public void registerAll(final ItemGroup group)
     {
-        final Set<BasicBlock> blocks = getBlocks();
-        for (final BasicBlock block : blocks)
-        {
-            final Identifier blockId = block.getIdentifier();
-            Item.builder().block(block)
-                                  .namespace(blockId.getNamespace())
-                                  .name(blockId.getPath())
-                                  .group(group)
-                                  .build();
-            block.write(block.asLootTable().build())
-                 .writeBlockStates()
-                 .writeItem()
-                 .writeModel()
-                 .writeRecipe(getRecipe(block));
+        final Set<Identifier> blockIds = getBlocks();
+        final List<net.minecraft.block.Block> blocks = new ArrayList<>(blockIds.size());
 
-            for (final BasicBlock reverseBlock : blocks)
-            {
-                reverseBlock.writeRecipe(getRecipe(reverseBlock));
-            }
-        }
+        blockIds.forEach((blockId) -> {
+            final String namespace = blockId.getNamespace();
+            final String blockName = blockId.getPath();
+            net.minecraft.block.Block block = Block.builder(getAncestor())
+                 .mineable()
+                 .namespace(namespace)
+                 .name(blockName)
+                 .build();
+            net.minecraft.item.Item item = Item.builder()
+                .block(block)
+                .namespace(namespace)
+                .name(blockName)
+                .group(group)
+                .build();
+            System.out.println(item.getGroup().getName());
+            BasicBlock.writeBlockStates(blockName);
+            BasicBlock.writeItem(blockName);
+            BasicBlock.writeModel(blockName);
+            BasicBlock.writeRecipe(getRecipe(block));
+            blocks.add(block);
+        });
+
+        blocks.forEach((parent) -> {
+            blocks.forEach((block) -> {
+                    BasicBlock.writeRecipe(getReversedRecipe(parent, block));
+            });
+        });
     }
 }

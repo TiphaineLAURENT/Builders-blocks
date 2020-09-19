@@ -17,7 +17,7 @@ import net.minecraft.data.client.model.Texture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import net.tiphainelaurent.chiselforfabric.api.Helpers;
+import net.tiphainelaurent.chiselforfabric.api.Item;
 
 @Mixin(ItemModelGenerator.class)
 public class ItemModelsRegistrationMixin
@@ -35,7 +35,7 @@ public class ItemModelsRegistrationMixin
     )
     private void injected(final CallbackInfo info)
     {
-        Helpers.Item.ITEMS.forEach((model, items) -> {
+        Item.ITEMS.forEach((model, items) -> {
             items.forEach((item) -> {
                 final Identifier itemId = Registry.ITEM.getId(item);
                 model.upload(itemId, Texture.all(itemId), writer);
