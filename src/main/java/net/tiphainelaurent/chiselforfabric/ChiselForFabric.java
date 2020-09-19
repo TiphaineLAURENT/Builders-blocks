@@ -11,6 +11,9 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 
@@ -24,17 +27,19 @@ public class ChiselForFabric implements ModInitializer
 																	 .build();
 
 	public static Path MAIN_DIRECTORY;
+	public static final Logger LOGGER = LogManager.getLogger();
 	public static Map<Identifier, Recipe<?>> RECIPES = new HashMap<>();
-	public static final AndesiteFamily andesiteFamily = new AndesiteFamily();
 
 	@Override
 	public void onInitialize()
 	{
+		LOGGER.info("initialize");
 		try {
 			MAIN_DIRECTORY = Paths.get(ChiselForFabric.class.getClassLoader().getResource("").toURI());
 		} catch (Exception e) {
-			System.out.println(e);
+			LOGGER.error(e);
 		}
-		andesiteFamily.registerAll(ITEM_GROUP);
+		LOGGER.info("registering");
+		new AndesiteFamily().registerAll(ITEM_GROUP);
 	}
 }

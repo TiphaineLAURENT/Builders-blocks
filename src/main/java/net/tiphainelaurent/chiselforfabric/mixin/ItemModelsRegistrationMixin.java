@@ -17,7 +17,7 @@ import net.minecraft.data.client.model.Texture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import net.tiphainelaurent.chiselforfabric.api.Item;
+import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 
 @Mixin(ItemModelGenerator.class)
 public class ItemModelsRegistrationMixin

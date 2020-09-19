@@ -1,4 +1,4 @@
-package net.tiphainelaurent.chiselforfabric.api;
+package net.tiphainelaurent.chiselforfabric.api.helpers;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -13,10 +13,7 @@ import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
 import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
-import net.tiphainelaurent.chiselforfabric.api.BasicBlock;
 import net.tiphainelaurent.chiselforfabric.api.FamilyRegistry;
 
 public class AndesiteFamily extends FamilyRegistry
@@ -58,11 +55,14 @@ public class AndesiteFamily extends FamilyRegistry
         new Identifier(ChiselForFabric.MOD_ID, "weaver")
     );
 
+    @Override
     public Set<Identifier> getBlocks()
     {
+        System.out.println(blocks);
         return blocks;
     }
 
+    @Override
     public Block getAncestor()
     {
         return Blocks.ANDESITE;
@@ -74,6 +74,7 @@ public class AndesiteFamily extends FamilyRegistry
         return ChiselForFabric.MOD_ID;
     }
 
+    @Override
     public Recipe<?> getRecipe(final Block current)
     {
         return new StonecuttingRecipe(new Identifier(ChiselForFabric.MOD_ID, String.format("stonecutting-%s_ot_%s", andesite, Registry.BLOCK.getId(current).getPath())),
@@ -83,6 +84,7 @@ public class AndesiteFamily extends FamilyRegistry
                     );
     }
 
+    @Override
     public Recipe<?> getReversedRecipe(final Block parent, final Block current)
     {
         if (parent.is(current))

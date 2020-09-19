@@ -8,6 +8,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 
+import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
+import net.tiphainelaurent.chiselforfabric.api.helpers.Block;
+
 public abstract class FamilyRegistry {
     private static final String namespace = "minecraft";
 
@@ -22,7 +25,7 @@ public abstract class FamilyRegistry {
     }
 
     public void registerAll(final ItemGroup group)
-    {
+    {        
         final Set<Identifier> blockIds = getBlocks();
         final List<net.minecraft.block.Block> blocks = new ArrayList<>(blockIds.size());
 
@@ -40,17 +43,16 @@ public abstract class FamilyRegistry {
                 .name(blockName)
                 .group(group)
                 .build();
-            System.out.println(item.getGroup().getName());
             BasicBlock.writeBlockStates(blockName);
-            BasicBlock.writeItem(blockName);
             BasicBlock.writeModel(blockName);
+            BasicBlock.writeItem(blockName);
             BasicBlock.writeRecipe(getRecipe(block));
             blocks.add(block);
         });
 
         blocks.forEach((parent) -> {
             blocks.forEach((block) -> {
-                    BasicBlock.writeRecipe(getReversedRecipe(parent, block));
+                BasicBlock.writeRecipe(getReversedRecipe(parent, block));
             });
         });
     }

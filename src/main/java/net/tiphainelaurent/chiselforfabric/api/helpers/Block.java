@@ -1,4 +1,4 @@
-package net.tiphainelaurent.chiselforfabric.api;
+package net.tiphainelaurent.chiselforfabric.api.helpers;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
