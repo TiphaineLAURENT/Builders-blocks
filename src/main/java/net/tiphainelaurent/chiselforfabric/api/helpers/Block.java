@@ -1,18 +1,22 @@
 package net.tiphainelaurent.chiselforfabric.api.helpers;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.ToIntFunction;
+
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock.ContextPredicate;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
-import net.minecraft.block.AbstractBlock.ContextPredicate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.LootConditionConsumingBuilder;
 import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -21,32 +25,18 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.Set;
-import java.util.function.ToIntFunction;
-import java.util.stream.Collectors;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
-import net.tiphainelaurent.chiselforfabric.api.helpers.Resource;
-
 public class Block
 {
-    public static final Set<Item> EXPLOSION_IMMUNE = Set.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).stream().map(ItemConvertible::asItem).collect(Collectors.toSet());
-    public static <T> T addSurvivesExplosionCondition(final ItemConvertible drop, final LootConditionConsumingBuilder<T> builder)
-    {
-        return !EXPLOSION_IMMUNE.contains(drop.asItem())
-                ? builder.conditionally(SurvivesExplosionLootCondition.builder())
-                : builder.getThis();
-    }
+    public static final Map<Identifier, LootTable> LOOT_POOLS = new HashMap<>();
 
     public static void makeMineable(final net.minecraft.block.Block block)
     {
-        LootTable table = new LootTable.Builder().pool(addSurvivesExplosionCondition(block,
-                                                LootPool.builder()
-                                                        .rolls(ConstantLootTableRange.create(1))
-                                                        .with(ItemEntry.builder(block))))
-            .build();
-        Resource.write(Registry.BLOCK.getId(block).getPath(), table);
+        LootPool.Builder pool = FabricLootPoolBuilder.builder()
+                                             .withEntry(ItemEntry.builder(block).build())
+                                             .rolls(ConstantLootTableRange.create(1))
+                                             .withCondition(SurvivesExplosionLootCondition.builder().build());
+        LootTable table = new LootTable.Builder().pool(pool).build();
+        LOOT_POOLS.put(block.getLootTableId(), table);
     }
 
     public static Builder builder(final Material material)

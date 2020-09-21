@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.client.model.Model;
@@ -14,6 +15,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.recipe.Recipe;
 
 import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -26,6 +28,7 @@ public class Item
     }
 
     public static final Map<Model, List<net.minecraft.item.Item>> ITEMS = new HashMap<>();
+	public static List<Supplier<Recipe<?>>> RECIPES = new LinkedList<>();
 
     public static Builder builder()
     {
@@ -137,6 +140,12 @@ public class Item
         public Item.Builder recipeRemainder(final net.minecraft.item.Item recipeRemainder)
         {
             settings.recipeRemainder(recipeRemainder);
+            return this;
+        }
+
+        public Item.Builder withRecipe(final Supplier<Recipe<?>> recipe)
+        {
+            RECIPES.add(recipe);
             return this;
         }
     }

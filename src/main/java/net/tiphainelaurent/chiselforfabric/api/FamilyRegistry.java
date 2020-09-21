@@ -36,18 +36,18 @@ public abstract class FamilyRegistry {
                 .namespace(namespace)
                 .name(blockName)
                 .group(group)
+                .withRecipe(() -> getRecipe(block))
                 .build();
             Block.makeMineable(block);
             Resource.writeBlockStates(blockName);
             Resource.writeModel(blockName, getTextureDirectory());
             Resource.writeItem(blockName);
-            Resource.writeRecipe(getRecipe(block));
             blocks.add(block);
         });
 
         blocks.forEach((parent) -> {
             blocks.forEach((block) -> {
-                Resource.writeRecipe(getReversedRecipe(parent, block));
+                Item.builder().withRecipe(() -> getReversedRecipe(parent, block));
             });
         });
     }

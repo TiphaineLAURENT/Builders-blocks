@@ -31,7 +31,6 @@ public class ChiselForFabric implements ModInitializer
 
 	public static Path MAIN_DIRECTORY;
 	public static final Logger LOGGER = LogManager.getLogger();
-	public static Map<Identifier, Recipe<?>> RECIPES = new HashMap<>();
 
 	public static final net.minecraft.block.Block EXAMPLE_BLOCK = Block.builder(Blocks.ANDESITE)
 																		//.mineable()

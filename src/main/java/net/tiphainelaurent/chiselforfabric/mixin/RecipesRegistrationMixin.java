@@ -20,7 +20,8 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
-import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
+
+import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 
 @Mixin(RecipeManager.class)
 public class RecipesRegistrationMixin
@@ -47,11 +48,12 @@ public class RecipesRegistrationMixin
 				System.out.println(e);
 			}
 		});
-		ChiselForFabric.RECIPES.forEach((identifier, recipe) -> {
+		Item.RECIPES.forEach((recipeSupplier) -> {
+			Recipe<?> recipe = recipeSupplier.get();
 			try {
 				tempRecipes.computeIfAbsent(recipe.getType(), (recipeType) -> {
 					return ImmutableMap.builder();
-				}).put(identifier, recipe);
+				}).put(recipe.getId(), recipe);
 			} catch (IllegalArgumentException | JsonParseException e) {
 				System.out.println(e);
 			}

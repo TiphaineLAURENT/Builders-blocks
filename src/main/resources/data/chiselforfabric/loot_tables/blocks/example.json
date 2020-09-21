@@ -4,7 +4,7 @@
         "rolls": 1,
         "entries": [{
             "type": "minecraft:item",
-            "name": "chiselforfabric:braid"
+            "name": "chiselforfabric:example"
         }],
         "conditions": [{
             "condition": "minecraft:survives_explosion"
