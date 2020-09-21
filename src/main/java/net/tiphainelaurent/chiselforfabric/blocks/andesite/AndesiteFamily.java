@@ -25,34 +25,34 @@ public class AndesiteFamily extends FamilyRegistry
     private final String andesite = Registry.ITEM.getId(Items.ANDESITE).getPath();
 
     private static final Set<Identifier> blocks = Set.of(
-        new Identifier(ChiselForFabric.MOD_ID, "braid"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-cracked"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-encased"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-small"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-soft"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-solid"),
-        new Identifier(ChiselForFabric.MOD_ID, "bricks-triple"),
-        new Identifier(ChiselForFabric.MOD_ID, "chaotic-medium"),
-        new Identifier(ChiselForFabric.MOD_ID, "chaotic-small"),
-        new Identifier(ChiselForFabric.MOD_ID, "circular"),
-        new Identifier(ChiselForFabric.MOD_ID, "cracked"),
-        new Identifier(ChiselForFabric.MOD_ID, "dent"),
-        new Identifier(ChiselForFabric.MOD_ID, "french-1"),
-        new Identifier(ChiselForFabric.MOD_ID, "french-2"),
-        new Identifier(ChiselForFabric.MOD_ID, "layers"),
-        new Identifier(ChiselForFabric.MOD_ID, "mosaic"),
-        new Identifier(ChiselForFabric.MOD_ID, "ornate"),
-        new Identifier(ChiselForFabric.MOD_ID, "panel"),
-        new Identifier(ChiselForFabric.MOD_ID, "pillar-side"),
-        new Identifier(ChiselForFabric.MOD_ID, "pillar-top"),
-        new Identifier(ChiselForFabric.MOD_ID, "raw"),
-        new Identifier(ChiselForFabric.MOD_ID, "road"),
-        new Identifier(ChiselForFabric.MOD_ID, "tiles-large"),
-        new Identifier(ChiselForFabric.MOD_ID, "tiles-medium"),
-        new Identifier(ChiselForFabric.MOD_ID, "tiles-small"),
-        new Identifier(ChiselForFabric.MOD_ID, "twisted-side"),
-        new Identifier(ChiselForFabric.MOD_ID, "twisted-top"),
-        new Identifier(ChiselForFabric.MOD_ID, "weaver")
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_braid"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-cracked"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-encased"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-small"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-soft"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-solid"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_bricks-triple"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_chaotic-medium"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_chaotic-small"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_circular"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_cracked"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_dent"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_french-1"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_french-2"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_layers"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_mosaic"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_ornate"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_panel"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_pillar-side"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_pillar-top"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_raw"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_road"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_tiles-large"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_tiles-medium"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_tiles-small"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_twisted-side"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_twisted-top"),
+        new Identifier(ChiselForFabric.MOD_ID, "andesite_weaver")
     );
 
     @Override
@@ -96,5 +96,10 @@ public class AndesiteFamily extends FamilyRegistry
                 new ItemStack(parent)
                 );
         }
+    }
+
+    @Override
+    public String getTextureDirectory() {
+        return "andesite";
     }
 }

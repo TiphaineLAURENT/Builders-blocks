@@ -14,6 +14,7 @@ import net.tiphainelaurent.chiselforfabric.api.helpers.Block;
 
 public abstract class FamilyRegistry {
     abstract public Set<Identifier> getBlocks();
+    abstract public String getTextureDirectory();
     abstract public net.minecraft.block.Block getAncestor();
     abstract public Recipe<?> getRecipe(final net.minecraft.block.Block current);
     abstract public Recipe<?> getReversedRecipe(final net.minecraft.block.Block parent, final net.minecraft.block.Block current);
@@ -38,7 +39,7 @@ public abstract class FamilyRegistry {
                 .build();
             Block.makeMineable(block);
             Resource.writeBlockStates(blockName);
-            Resource.writeModel(blockName);
+            Resource.writeModel(blockName, getTextureDirectory());
             Resource.writeItem(blockName);
             Resource.writeRecipe(getRecipe(block));
             blocks.add(block);

@@ -32,9 +32,9 @@ public class Resource {
         write("/assets/chiselforfabric/blockstates", name, String.format("{\"variants\": {\"\": {\"model\": \"chiselforfabric:block/%s\"}}}", name));
     }
 
-    public static void writeModel(final String name)
+    public static void writeModel(final String name, final String directory)
     {
-        write("/assets/chiselforfabric/models/block", name, String.format("{\"parent\": \"block/cube_all\",\"textures\": {\"all\": \"chiselforfabric:block/andesite/%s\"}}", name));
+        write("/assets/chiselforfabric/models/block", name, String.format("{\"parent\": \"block/cube_all\",\"textures\": {\"all\": \"chiselforfabric:block/%s/%s\"}}", directory, name.split("_")[1]));
     }
 
     public static void writeItem(final String name)
