@@ -34,7 +34,7 @@ public class Resource {
 
     public static void writeModel(final String name, final String directory)
     {
-        write("/assets/chiselforfabric/models/block", name, String.format("{\"parent\": \"block/cube_all\",\"textures\": {\"all\": \"chiselforfabric:block/%s/%s\"}}", directory, name.split("_")[1]));
+        write("/assets/chiselforfabric/models/block", name, String.format("{\"parent\": \"block/cube_all\",\"textures\": {\"all\": \"chiselforfabric:block/%s/%s\"}}", directory, name.substring(name.indexOf("_", 0) + 1)));
     }
 
     public static void writeItem(final String name)
