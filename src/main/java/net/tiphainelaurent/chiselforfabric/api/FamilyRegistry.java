@@ -37,7 +37,6 @@ public abstract class FamilyRegistry {
                 .namespace(namespace)
                 .name(blockName)
                 .group(group)
-                .withRecipe(() -> getRecipe(block))
                 .build();
             Resource.writeBlockStates(blockName);
             Resource.writeModel(blockName, getTextureDirectory());
@@ -46,8 +45,10 @@ public abstract class FamilyRegistry {
         });
 
         blocks.forEach((parent) -> {
+            Item.builder().withRecipe(getRecipe(parent));
+
             blocks.forEach((block) -> {
-                Item.builder().withRecipe(() -> getReversedRecipe(parent, block));
+                Item.builder().withRecipe(getReversedRecipe(parent, block));
             });
         });
     }

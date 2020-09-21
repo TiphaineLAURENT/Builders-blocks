@@ -30,7 +30,7 @@ public class Item
     }
 
     public static final Map<Identifier, Model> ITEMS = new HashMap<>();
-	public static List<Supplier<Recipe<?>>> RECIPES = new LinkedList<>();
+	public static List<Recipe<?>> RECIPES = new LinkedList<>();
 
     public static Builder builder()
     {
@@ -138,7 +138,7 @@ public class Item
             return this;
         }
 
-        public Item.Builder withRecipe(final Supplier<Recipe<?>> recipe)
+        public Item.Builder withRecipe(final Recipe<?> recipe)
         {
             RECIPES.add(recipe);
             return this;

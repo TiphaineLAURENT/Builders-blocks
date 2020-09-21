@@ -21,6 +21,7 @@ import net.tiphainelaurent.chiselforfabric.api.helpers.Block;
 import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 import net.tiphainelaurent.chiselforfabric.blocks.ancientstone.AncientStoneFamily;
 import net.tiphainelaurent.chiselforfabric.blocks.andesite.AndesiteFamily;
+import net.tiphainelaurent.chiselforfabric.blocks.antiblock.AntiBlockFamily;
 
 public class ChiselForFabric implements ModInitializer
 {
@@ -33,7 +34,7 @@ public class ChiselForFabric implements ModInitializer
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static final net.minecraft.block.Block EXAMPLE_BLOCK = Block.builder(Blocks.ANDESITE)
-																		//.mineable()
+																		.mineable()
 																		.namespace(MOD_ID)
 																		.name("example")
 																		.build();
@@ -55,5 +56,6 @@ public class ChiselForFabric implements ModInitializer
 		}
 		new AndesiteFamily().registerAll(ITEM_GROUP);
 		new AncientStoneFamily().registerAll(ITEM_GROUP);
+		new AntiBlockFamily().registerAll(ITEM_GROUP);
 	}
 }

@@ -48,8 +48,7 @@ public class RecipesRegistrationMixin
 				System.out.println(e);
 			}
 		});
-		Item.RECIPES.forEach((recipeSupplier) -> {
-			Recipe<?> recipe = recipeSupplier.get();
+		Item.RECIPES.forEach((recipe) -> {
 			try {
 				tempRecipes.computeIfAbsent(recipe.getType(), (recipeType) -> {
 					return ImmutableMap.builder();
