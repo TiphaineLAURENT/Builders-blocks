@@ -35,11 +35,8 @@ public class ItemModelsRegistrationMixin
     )
     private void injected(final CallbackInfo info)
     {
-        Item.ITEMS.forEach((model, items) -> {
-            items.forEach((item) -> {
-                final Identifier itemId = Registry.ITEM.getId(item);
-                model.upload(itemId, Texture.all(itemId), writer);
-            });
+        Item.ITEMS.forEach((itemId, model) -> {
+            model.upload(itemId, Texture.all(itemId), writer);
         });
     }
 }

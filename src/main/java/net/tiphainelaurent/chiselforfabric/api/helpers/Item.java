@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
+import net.minecraft.data.client.model.BlockStateModelGenerator;
 import net.minecraft.data.client.model.Model;
 import net.minecraft.data.client.model.Models;
 import net.minecraft.util.Identifier;
@@ -27,7 +29,7 @@ public class Item
         BLOCK;
     }
 
-    public static final Map<Model, List<net.minecraft.item.Item>> ITEMS = new HashMap<>();
+    public static final Map<Identifier, Model> ITEMS = new HashMap<>();
 	public static List<Supplier<Recipe<?>>> RECIPES = new LinkedList<>();
 
     public static Builder builder()
@@ -43,29 +45,22 @@ public class Item
         private String namespace = "minecraft";
         private String name;
 
-        private net.minecraft.item.Item createItem()
+        public net.minecraft.item.Item build()
         {
+            net.minecraft.item.Item item;
+            Identifier itemId = new Identifier(namespace, name);
+
             switch (type)
             {
                 case BLOCK:
-                    net.minecraft.item.Item item = new BlockItem(block, settings);
-                    ITEMS.computeIfAbsent(Models.CUBE_ALL, (itemModel) -> {
-                        return new LinkedList<net.minecraft.item.Item>();
-                    }).add(item);
-                    return item;
+                    item = new BlockItem(block, settings);
+                    ITEMS.put(itemId, new Model(Optional.of(Registry.BLOCK.getId(block)), Optional.empty()));
                 default:
                     item =  new net.minecraft.item.Item(settings);
-                    ITEMS.computeIfAbsent(Models.GENERATED, (itemModel) -> {
-                        return new LinkedList<net.minecraft.item.Item>();
-                    }).add(item);
-                    return item;
+                    ITEMS.put(itemId, new Model(Optional.empty(), Optional.empty()));
             }
-        }
 
-        public net.minecraft.item.Item build()
-        {
-            net.minecraft.item.Item item = createItem();
-            Registry.register(Registry.ITEM, new Identifier(namespace, name), item);
+            Registry.register(Registry.ITEM, itemId, item);
 
             return item;
         }

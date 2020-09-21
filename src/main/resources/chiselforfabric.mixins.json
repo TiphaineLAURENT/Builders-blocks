@@ -6,7 +6,8 @@
     "mixins": [],
     "client": [
         "RecipesRegistrationMixin",
-        "LootTablesRegistrationMixin"
+        "LootTablesRegistrationMixin",
+        "ItemModelsRegistrationMixin"
     ],
     "injectors": {
         "defaultRequire": 1
