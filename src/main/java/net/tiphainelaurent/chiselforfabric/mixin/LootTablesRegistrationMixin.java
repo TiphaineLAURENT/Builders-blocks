@@ -33,6 +33,8 @@ public class LootTablesRegistrationMixin
     private void injected(final Map<Identifier, JsonElement> map, final ResourceManager resourceManager,
             final Profiler profiler, final CallbackInfo ci, final ImmutableMap.Builder<Identifier, LootTable> builder)
     {
-        builder.putAll(Block.LOOT_POOLS);
+        Block.LOOT_POOLS.forEach((id, supplier) -> {
+            builder.put(id, supplier.get());
+        });
     }
 }

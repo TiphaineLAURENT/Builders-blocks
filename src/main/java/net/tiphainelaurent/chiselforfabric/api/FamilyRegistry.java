@@ -30,6 +30,7 @@ public abstract class FamilyRegistry {
             net.minecraft.block.Block block = Block.builder(getAncestor())
                  .namespace(namespace)
                  .name(blockName)
+                 .mineable()
                  .build();
             Item.builder()
                 .block(block)
@@ -38,7 +39,6 @@ public abstract class FamilyRegistry {
                 .group(group)
                 .withRecipe(() -> getRecipe(block))
                 .build();
-            Block.makeMineable(block);
             Resource.writeBlockStates(blockName);
             Resource.writeModel(blockName, getTextureDirectory());
             Resource.writeItem(blockName);

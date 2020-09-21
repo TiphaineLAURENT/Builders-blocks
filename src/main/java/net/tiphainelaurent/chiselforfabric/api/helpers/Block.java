@@ -2,6 +2,7 @@ package net.tiphainelaurent.chiselforfabric.api.helpers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -27,17 +28,7 @@ import net.minecraft.util.registry.Registry;
 
 public class Block
 {
-    public static final Map<Identifier, LootTable> LOOT_POOLS = new HashMap<>();
-
-    public static void makeMineable(final net.minecraft.block.Block block)
-    {
-        LootPool.Builder pool = FabricLootPoolBuilder.builder()
-                                             .withEntry(ItemEntry.builder(block).build())
-                                             .rolls(ConstantLootTableRange.create(1))
-                                             .withCondition(SurvivesExplosionLootCondition.builder().build());
-        LootTable table = new LootTable.Builder().pool(pool).build();
-        LOOT_POOLS.put(block.getLootTableId(), table);
-    }
+    public static final Map<Identifier, Supplier<LootTable>> LOOT_POOLS = new HashMap<>();
 
     public static Builder builder(final Material material)
     {
@@ -91,6 +82,17 @@ public class Block
             final net.minecraft.block.Block block = new net.minecraft.block.Block(settings);
             Registry.register(Registry.BLOCK, new Identifier(namespace, name), block);
 
+            if (mineable)
+            {
+                LOOT_POOLS.put(block.getLootTableId(), () -> {
+                    LootPool.Builder pool = FabricLootPoolBuilder.builder()
+                                                        .withEntry(ItemEntry.builder(block).build())
+                                                        .rolls(ConstantLootTableRange.create(1))
+                                                        .withCondition(SurvivesExplosionLootCondition.builder().build());
+                    return new LootTable.Builder().pool(pool).build();
+                });        
+            }
+
             return block;
         }
 
@@ -104,7 +106,6 @@ public class Block
             return this;
         }
 
-        @Deprecated
         public Block.Builder mineable()
         {
             mineable = true;
