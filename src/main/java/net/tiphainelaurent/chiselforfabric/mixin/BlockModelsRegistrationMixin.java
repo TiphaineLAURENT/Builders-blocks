@@ -1,12 +1,5 @@
-  
 package net.tiphainelaurent.chiselforfabric.mixin;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
-import com.google.gson.JsonElement;
-
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,19 +7,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.model.Texture;
+import net.minecraft.data.client.model.BlockStateModelGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
 import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 
-@Mixin(ItemModelGenerator.class)
-public class ItemModelsRegistrationMixin
+@Mixin(BlockStateModelGenerator.class)
+public class BlockModelsRegistrationMixin
 {
 
     @Shadow
-    @Final
-    private BiConsumer<Identifier, Supplier<JsonElement>> writer;
+    private void registerSimpleCubeAll(Block block){};
+
+    @Shadow
+    private void registerParentedItemModel(Block block, Identifier parentModelId){};
 
     @Inject(
         method = "register()V",
@@ -38,7 +33,8 @@ public class ItemModelsRegistrationMixin
     {
         Item.ITEMS.forEach((itemId, model) -> {
             Block block = Registry.BLOCK.get(itemId);
-            model.upload(itemId, Texture.all(itemId), writer);
+            registerSimpleCubeAll(block);
+            registerParentedItemModel(block, itemId);
         });
     }
 }

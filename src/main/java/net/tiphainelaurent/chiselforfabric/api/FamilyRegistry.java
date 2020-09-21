@@ -41,7 +41,7 @@ public abstract class FamilyRegistry {
                 .build();
             Resource.writeBlockStates(blockName);
             Resource.writeModel(blockName, getTextureDirectory());
-            // Resource.writeItem(blockName);
+            Resource.writeItem(blockName);
             blocks.add(block);
         });
 
