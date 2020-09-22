@@ -11,12 +11,16 @@ import net.minecraft.util.Identifier;
 
 import net.tiphainelaurent.chiselforfabric.api.helpers.Resource;
 
-public abstract class FamilyRegistry {
+public abstract class FamilyRegistry
+{
     abstract public Set<Identifier> getBlocks();
     abstract public String getTextureDirectory();
     abstract public Block getAncestor();
     abstract public Recipe<?> getRecipe(final Block current);
     abstract public Recipe<?> getReversedRecipe(final Block parent, final Block current);
+
+    // abstract public void getRecipes(final net.tiphainelaurent.chiselforfabric.api.helpers.Item.Builder builder);
+    // abstract public void getReversedRecipes(final net.tiphainelaurent.chiselforfabric.api.helpers.Item.Builder builder);
 
     public void registerAll(final ItemGroup group)
     {
@@ -27,9 +31,9 @@ public abstract class FamilyRegistry {
             final String namespace = blockId.getNamespace();
             final String blockName = blockId.getPath();
             Block block = net.tiphainelaurent.chiselforfabric.api.helpers.Block.builder(getAncestor())
-                 .mineable()
-                 .asItem(group)
-                 .build(namespace, blockName);
+                .mineable()
+                .asItem(group)
+                .build(namespace, blockName);
             Resource.writeBlockStates(blockName);
             Resource.writeBlockModel(blockName, getTextureDirectory());
             Resource.writeItemModel(blockName);
@@ -40,7 +44,8 @@ public abstract class FamilyRegistry {
             net.tiphainelaurent.chiselforfabric.api.helpers.Item.builder().withRecipe(getRecipe(parent));
 
             blocks.forEach((block) -> {
-                net.tiphainelaurent.chiselforfabric.api.helpers.Item.builder().withRecipe(getReversedRecipe(parent, block));
+                net.tiphainelaurent.chiselforfabric.api.helpers.Item.builder()
+                    .withRecipe(getReversedRecipe(parent, block));
             });
         });
     }

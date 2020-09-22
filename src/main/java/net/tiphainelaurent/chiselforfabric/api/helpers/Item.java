@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -162,6 +163,12 @@ public class Item
         public Item.Builder withRecipe(final Recipe<?> recipe)
         {
             RECIPES.add(recipe);
+            return this;
+        }
+
+        public Item.Builder withRecipes(final Consumer<Item.Builder> consumer)
+        {
+            consumer.accept(this);
             return this;
         }
     }

@@ -36,15 +36,18 @@ public class Block
         return new Builder(material);
     }
 
+
     public static Builder builder(final Material material, final MaterialColor color)
     {
         return new Builder(material, color);
     }
 
+
     public static Builder builder(final AbstractBlock block)
     {
         return new Builder(block);
     }
+
 
     public static Builder builder(final AbstractBlock.Settings block)
     {
@@ -64,30 +67,36 @@ public class Block
             settings = FabricBlockSettings.of(material);
         }
 
+
         public Builder(final Material material, final MaterialColor color)
         {
             settings = FabricBlockSettings.of(material, color);
         }
+
 
         public Builder(final AbstractBlock block)
         {
             settings = FabricBlockSettings.copyOf(block);
         }
 
+
         public Builder(final AbstractBlock.Settings block)
         {
             settings = FabricBlockSettings.copyOf(block);
         }
+
 
         public net.minecraft.block.Block build()
         {
             return build(new Identifier(namespace, name));
         }
 
+
         public net.minecraft.block.Block build(final String namespace_, final String name_)
         {
             return build(new Identifier(namespace_, name_));
         }
+
 
         public net.minecraft.block.Block build(final Identifier blockId)
         {
@@ -102,10 +111,10 @@ public class Block
             if (mineable)
             {
                 LOOT_POOLS.put(block.getLootTableId(), () -> {
-                    LootPool.Builder pool = FabricLootPoolBuilder.builder()
-                                                        .withEntry(ItemEntry.builder(block).build())
-                                                        .rolls(ConstantLootTableRange.create(1))
-                                                        .withCondition(SurvivesExplosionLootCondition.builder().build());
+                    final LootPool.Builder pool = FabricLootPoolBuilder.builder()
+                        .withEntry(ItemEntry.builder(block).build())
+                        .rolls(ConstantLootTableRange.create(1))
+                        .withCondition(SurvivesExplosionLootCondition.builder().build());
                     return new LootTable.Builder().pool(pool).build();
                 });
             }
@@ -113,15 +122,20 @@ public class Block
             return block;
         }
 
-        public Block.Builder namespace(final String namespace_) {
+
+        public Block.Builder namespace(final String namespace_)
+        {
             namespace = namespace_;
             return this;
         }
 
-        public Block.Builder name(final String name_) {
+
+        public Block.Builder name(final String name_)
+        {
             name = name_;
             return this;
         }
+
 
         public Block.Builder mineable()
         {
@@ -129,155 +143,216 @@ public class Block
             return this;
         }
 
-        public Block.Builder air() {
+
+        public Block.Builder air()
+        {
             settings.air();
             return this;
         }
 
-        public Block.Builder allowsSpawning(final AbstractBlock.TypedContextPredicate<EntityType<?>> predicate) {
+
+        public Block.Builder allowsSpawning(final AbstractBlock.TypedContextPredicate<EntityType<?>> predicate)
+        {
             settings.allowsSpawning(predicate);
             return this;
         }
 
-        public Block.Builder blockVision(final ContextPredicate predicate) {
+
+        public Block.Builder blockVision(final ContextPredicate predicate)
+        {
             settings.blockVision(predicate);
             return this;
         }
 
-        public Block.Builder breakByHand(final boolean breakByHand) {
+
+        public Block.Builder breakByHand(final boolean breakByHand)
+        {
             settings.breakByHand(breakByHand);
             return this;
         }
 
-        public Block.Builder breakByTool(final Tag<Item> tag, final int miningLevel) {
+
+        public Block.Builder breakByTool(final Tag<Item> tag, final int miningLevel)
+        {
             settings.breakByTool(tag, miningLevel);
             return this;
         }
 
-        public Block.Builder breakByTool(final Tag<Item> tag) {
+
+        public Block.Builder breakByTool(final Tag<Item> tag)
+        {
             settings.breakByTool(tag);
             return this;
         }
 
-        public Block.Builder breakInstantly() {
+
+        public Block.Builder breakInstantly()
+        {
             settings.breakInstantly();
             return this;
         }
 
-        public Block.Builder collidable(final boolean collidable) {
+
+        public Block.Builder collidable(final boolean collidable)
+        {
             settings.collidable(collidable);
             return this;
         }
 
-        public Block.Builder drops(final Identifier dropTableId) {
+
+        public Block.Builder drops(final Identifier dropTableId)
+        {
             settings.drops(dropTableId);
             return this;
         }
 
-        public Block.Builder dropsLike(final net.minecraft.block.Block block) {
+
+        public Block.Builder dropsLike(final net.minecraft.block.Block block)
+        {
             settings.dropsLike(block);
             return this;
         }
 
-        public Block.Builder dynamicBounds() {
+
+        public Block.Builder dynamicBounds()
+        {
             settings.dynamicBounds();
             return this;
         }
 
-        public Block.Builder emissiveLightning(final ContextPredicate predicate) {
+
+        public Block.Builder emissiveLightning(final ContextPredicate predicate)
+        {
             settings.emissiveLighting(predicate);
             return this;
         }
 
-        public Block.Builder hardness(final float hardness) {
+
+        public Block.Builder hardness(final float hardness)
+        {
             settings.hardness(hardness);
             return this;
         }
 
-        public Block.Builder jumpVelocityMultiplier(final float jumpVelocityMultiplier) {
+
+        public Block.Builder jumpVelocityMultiplier(final float jumpVelocityMultiplier)
+        {
             settings.jumpVelocityMultiplier(jumpVelocityMultiplier);
             return this;
         }
 
-        public Block.Builder lightLevel(final int lightLevel) {
+
+        public Block.Builder lightLevel(final int lightLevel)
+        {
             settings.lightLevel(lightLevel);
             return this;
         }
 
-        public Block.Builder lightLevel(final ToIntFunction<BlockState> levelFunction) {
+
+        public Block.Builder lightLevel(final ToIntFunction<BlockState> levelFunction)
+        {
             settings.lightLevel(levelFunction);
             return this;
         }
 
-        public Block.Builder materialColor(final DyeColor color) {
+
+        public Block.Builder materialColor(final DyeColor color)
+        {
             settings.materialColor(color);
             return this;
         }
 
-        public Block.Builder materialColor(final MaterialColor color) {
+
+        public Block.Builder materialColor(final MaterialColor color)
+        {
             settings.materialColor(color);
             return this;
         }
 
-        public Block.Builder noCollision() {
+
+        public Block.Builder noCollision()
+        {
             settings.noCollision();
             return this;
         }
 
-        public Block.Builder nonOpaque() {
+
+        public Block.Builder nonOpaque()
+        {
             settings.nonOpaque();
             return this;
         }
 
-        public Block.Builder postProcess(final ContextPredicate predicate) {
+
+        public Block.Builder postProcess(final ContextPredicate predicate)
+        {
             settings.postProcess(predicate);
             return this;
         }
 
-        public Block.Builder requiresTool() {
+
+        public Block.Builder requiresTool()
+        {
             settings.requiresTool();
             return this;
         }
 
-        public Block.Builder resistances(final float resistance) {
+
+        public Block.Builder resistances(final float resistance)
+        {
             settings.resistance(resistance);
             return this;
         }
 
-        public Block.Builder slipperiness(final float value) {
+
+        public Block.Builder slipperiness(final float value)
+        {
             settings.slipperiness(value);
             return this;
         }
 
-        public Block.Builder solidBlock(final ContextPredicate predicate) {
+
+        public Block.Builder solidBlock(final ContextPredicate predicate)
+        {
             settings.solidBlock(predicate);
             return this;
         }
 
-        public Block.Builder sounds(final BlockSoundGroup group) {
+
+        public Block.Builder sounds(final BlockSoundGroup group)
+        {
             settings.sounds(group);
             return this;
         }
 
-        public Block.Builder strength(final float hardness, final float resistance) {
+
+        public Block.Builder strength(final float hardness, final float resistance)
+        {
             settings.strength(hardness, resistance);
             return this;
         }
 
-        public Block.Builder strength(final float strength) {
+
+        public Block.Builder strength(final float strength)
+        {
             settings.strength(strength);
             return this;
         }
 
-        public Block.Builder suffocates(final ContextPredicate predicate) {
+
+        public Block.Builder suffocates(final ContextPredicate predicate)
+        {
             settings.suffocates(predicate);
             return this;
         }
 
-        public Block.Builder tickRandomly() {
+
+        public Block.Builder tickRandomly()
+        {
             settings.ticksRandomly();
             return this;
         }
+
 
         public Block.Builder velocityMultiplier(final float velocityMultiplier)
         {
@@ -285,10 +360,11 @@ public class Block
             return this;
         }
 
+
         public Block.Builder asItem(final ItemGroup itemGroup)
         {
             itemBuilder = net.tiphainelaurent.chiselforfabric.api.helpers.Item.builder()
-                                                                              .group(itemGroup);
+                .group(itemGroup);
 
             return this;
         }
