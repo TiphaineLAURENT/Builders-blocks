@@ -13,11 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.model.Texture;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.tiphainelaurent.chiselforfabric.api.helpers.Item;
 
 @Mixin(ItemModelGenerator.class)
@@ -37,7 +35,6 @@ public class ItemModelsRegistrationMixin
     private void injected(final CallbackInfo info)
     {
         Item.ITEMS.forEach((itemId, model) -> {
-            Block block = Registry.BLOCK.get(itemId);
             model.upload(itemId, Texture.all(itemId), writer);
         });
     }

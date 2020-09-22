@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
@@ -15,6 +17,7 @@ import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -56,6 +59,8 @@ public class Block
         private String namespace = "minecraft";
         private String name;
         private boolean mineable = false;
+        @Nullable
+        private net.tiphainelaurent.chiselforfabric.api.helpers.Item.Builder itemBuilder;
 
         public Builder(final Material material)
         {
@@ -79,8 +84,23 @@ public class Block
 
         public net.minecraft.block.Block build()
         {
+            return build(new Identifier(namespace, name));
+        }
+
+        public net.minecraft.block.Block build(final String namespace_, final String name_)
+        {
+            return build(new Identifier(namespace_, name_));
+        }
+
+        public net.minecraft.block.Block build(final Identifier blockId)
+        {
             final net.minecraft.block.Block block = new net.minecraft.block.Block(settings);
-            Registry.register(Registry.BLOCK, new Identifier(namespace, name), block);
+            Registry.register(Registry.BLOCK, blockId, block);
+
+            if (itemBuilder != null)
+            {
+                itemBuilder.fromBlock(block).build(blockId);
+            }
 
             if (mineable)
             {
@@ -90,7 +110,7 @@ public class Block
                                                         .rolls(ConstantLootTableRange.create(1))
                                                         .withCondition(SurvivesExplosionLootCondition.builder().build());
                     return new LootTable.Builder().pool(pool).build();
-                });        
+                });
             }
 
             return block;
@@ -265,6 +285,14 @@ public class Block
         public Block.Builder velocityMultiplier(final float velocityMultiplier)
         {
             settings.velocityMultiplier(velocityMultiplier);
+            return this;
+        }
+
+        public Block.Builder asItem(final ItemGroup itemGroup)
+        {
+            itemBuilder = net.tiphainelaurent.chiselforfabric.api.helpers.Item.builder()
+                                                                              .group(itemGroup);
+
             return this;
         }
     }

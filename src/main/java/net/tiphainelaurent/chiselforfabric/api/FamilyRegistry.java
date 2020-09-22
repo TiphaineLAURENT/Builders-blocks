@@ -28,19 +28,12 @@ public abstract class FamilyRegistry {
             final String namespace = blockId.getNamespace();
             final String blockName = blockId.getPath();
             net.minecraft.block.Block block = Block.builder(getAncestor())
-                 .namespace(namespace)
-                 .name(blockName)
                  .mineable()
-                 .build();
-            Item.builder()
-                .block(block)
-                .namespace(namespace)
-                .name(blockName)
-                .group(group)
-                .build();
+                 .asItem(group)
+                 .build(namespace, blockName);
             Resource.writeBlockStates(blockName);
-            Resource.writeModel(blockName, getTextureDirectory());
-            Resource.writeItem(blockName);
+            Resource.writeBlockModel(blockName, getTextureDirectory());
+            Resource.writeItemModel(blockName);
             blocks.add(block);
         });
 

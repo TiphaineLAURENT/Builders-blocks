@@ -5,22 +5,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Supplier;
+
+import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.client.model.BlockStateModelGenerator;
 import net.minecraft.data.client.model.Model;
-import net.minecraft.data.client.model.Models;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
-
-import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
+import net.minecraft.util.registry.Registry;
+import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 
 public class Item
 {
@@ -47,22 +45,29 @@ public class Item
 
         public net.minecraft.item.Item build()
         {
-            net.minecraft.item.Item item;
-            Identifier itemId = new Identifier(namespace, name);
+            return build(new Identifier(namespace, name));
+        }
 
+        public net.minecraft.item.Item build(final String namespace_, final String name_)
+        {
+            return build(new Identifier(namespace_, name_));
+        }
+
+        public net.minecraft.item.Item build(final Identifier itemId)
+        {
             switch (type)
             {
                 case BLOCK:
-                    item = new BlockItem(block, settings);
+                    final BlockItem blockItem = new BlockItem(block, settings);
+                    Registry.register(Registry.ITEM, itemId, blockItem);
                     ITEMS.put(itemId, new Model(Optional.of(Registry.BLOCK.getId(block)), Optional.empty()));
+                    return blockItem;
                 default:
-                    item =  new net.minecraft.item.Item(settings);
+                    net.minecraft.item.Item item =  new net.minecraft.item.Item(settings);
+                    Registry.register(Registry.ITEM, itemId, item);
                     ITEMS.put(itemId, new Model(Optional.empty(), Optional.empty()));
+                    return item;
             }
-
-            Registry.register(Registry.ITEM, itemId, item);
-
-            return item;
         }
 
         public Item.Builder namespace(final String namespace_)
@@ -77,7 +82,7 @@ public class Item
             return this;
         }
 
-        public Item.Builder block(final Block block_)
+        public Item.Builder fromBlock(final Block block_)
         {
             type = ITEM_TYPE.BLOCK;
             block = block_;
