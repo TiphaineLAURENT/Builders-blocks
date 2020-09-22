@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
@@ -59,7 +57,6 @@ public class Block
         private String namespace = "minecraft";
         private String name;
         private boolean mineable = false;
-        @Nullable
         private net.tiphainelaurent.chiselforfabric.api.helpers.Item.Builder itemBuilder;
 
         public Builder(final Material material)
