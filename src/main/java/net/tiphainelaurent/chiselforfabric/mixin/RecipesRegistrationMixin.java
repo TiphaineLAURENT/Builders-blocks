@@ -9,9 +9,13 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeManager;
@@ -31,6 +35,27 @@ public class RecipesRegistrationMixin
 
 	@Shadow
 	private Map<RecipeType<?>, Map<Identifier, Recipe<?>>> recipes;
+
+	// @Redirect(
+	// 	method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V",
+	// 	at = @At(
+	// 		value = "FIELD",
+	// 		target = "Lnet/minecraft/recipe/RecipeManager;recipes:Ljava/util/Map;",
+	// 		opcode = Opcodes.PUTFIELD
+	// 	)
+	// )
+	// private void injected(final RecipeManager manager, final Map<RecipeType<?>, Map<Identifier, Recipe<?>>> recipes)
+	// {
+	// 	Item.RECIPES.forEach((recipe) -> {
+	// 		try {
+	// 			recipes.computeIfAbsent(recipe.getType(), (recipeType) -> {
+	// 				return ImmutableMap.builder();
+	// 			}).put(recipe.getId(), recipe);
+	// 		} catch (IllegalArgumentException | JsonParseException e) {
+	// 			System.out.println(e);
+	// 		}
+	// 	});
+	// }
 
 	@Overwrite
 	public void apply(final Map<Identifier, JsonElement> map, final ResourceManager resourceManager, final Profiler profiler)
