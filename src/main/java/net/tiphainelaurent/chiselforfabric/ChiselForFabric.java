@@ -31,7 +31,7 @@ public class ChiselForFabric implements ModInitializer
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static final Block EXAMPLE_BLOCK = net.tiphainelaurent.chiselforfabric.api.helpers.Block.builder(Blocks.ANDESITE)
-																								//    .mineable()
+																								   .mineable()
 																								   .build(MOD_ID, "example");
 
 	@Override
