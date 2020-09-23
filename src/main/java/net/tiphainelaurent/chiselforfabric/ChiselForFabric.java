@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -29,6 +30,7 @@ public class ChiselForFabric implements ModInitializer
 
 	public static Path MAIN_DIRECTORY;
 	public static final Logger LOGGER = LogManager.getLogger();
+	public static boolean DEBUG = FabricLoader.getInstance().isDevelopmentEnvironment();
 
 	public static final Block EXAMPLE_BLOCK = net.tiphainelaurent.chiselforfabric.api.helpers.Block.builder(Blocks.ANDESITE)
 																								   .mineable()

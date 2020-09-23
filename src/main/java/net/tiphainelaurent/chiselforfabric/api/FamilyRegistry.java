@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
-
+import net.tiphainelaurent.chiselforfabric.ChiselForFabric;
 import net.tiphainelaurent.chiselforfabric.api.helpers.Resource;
 
 public abstract class FamilyRegistry
@@ -34,9 +34,12 @@ public abstract class FamilyRegistry
                 .mineable()
                 .asItem(group)
                 .build(namespace, blockName);
-            Resource.writeBlockStates(blockName);
-            Resource.writeBlockModel(blockName, getTextureDirectory());
-            Resource.writeItemModel(blockName);
+            if (ChiselForFabric.DEBUG)
+            {
+                Resource.writeBlockStates(blockName);
+                Resource.writeBlockModel(blockName, getTextureDirectory());
+                Resource.writeItemModel(blockName);
+            }
             blocks.add(block);
         });
 
