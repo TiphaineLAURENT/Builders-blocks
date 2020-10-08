@@ -101,7 +101,7 @@ curseforge {
 		}
 
 		mainArtifact(jar) {
-			displayName = "Chisel for Fabric version: ${project.version}"
+			displayName = "Builders'blocks version: ${project.version}"
 		}
 	}
 }

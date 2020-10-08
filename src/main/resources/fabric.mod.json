@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
-    "id": "chiselforfabric",
-    "version": "1.16.3.a1",
+    "id": "buildersblocks",
+    "version": "1.16.3.a2",
 
     "name": "Chisel for fabric",
     "description": "This is a port of the famous Chisel mod on the Fabric loader",
@@ -9,27 +9,27 @@
         "Tiphaine LAURENT"
     ],
     "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/TiphaineLAURENT/Chisel-for-fabric"
+        "homepage": "https://github.com/TiphaineLAURENT/Builders-blocks/blob/master/README.md",
+        "sources": "https://github.com/TiphaineLAURENT/Builders-blocks"
     },
 
     "license": "CC0-1.0",
-    "icon": "assets/chiselforfabric/icon.png",
+    "icon": "assets/buildersblocks/icon.png",
 
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.tiphainelaurent.chiselforfabric.ChiselForFabric"
+            "net.tiphainelaurent.buildersblocks.BuildersBlocks"
         ]
     },
     "mixins": [
-        "chiselforfabric.mixins.json"
+        "buildersblocks.mixins.json"
     ],
 
     "depends": {
         "fabricloader": ">=0.7.4",
         "fabric": "*",
-        "minecraft": "1.16.x"
+        "minecraft": ">=1.16.3"
     },
     "suggests": {
         "flamingo": "*"
