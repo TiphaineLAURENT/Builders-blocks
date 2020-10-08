@@ -27,6 +27,9 @@ dependencies {
 	// include "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
 	// modImplementation "me.orangemonkey68:injectable-recipes:${project.injectable_recipes_version}"
 
+	modImplementation "com.lettuce.fudge:artifice:${artifice_version}"
+	include "com.lettuce.fudge:artifice:${artifice_version}"
+
 	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }
 
