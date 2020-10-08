@@ -16,8 +16,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-
-import net.tiphainelaurent.buildersblocks.blocks.ancientstone.AncientStoneFamily;
+import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.blocks.andesite.AndesiteFamily;
 import net.tiphainelaurent.buildersblocks.blocks.antiblock.AntiBlockFamily;
 
@@ -50,7 +49,7 @@ public class BuildersBlocks implements ModInitializer
 			LOGGER.error(e);
 		}
 		new AndesiteFamily().registerAll(ITEM_GROUP);
-		new AncientStoneFamily().registerAll(ITEM_GROUP);
+		new GenericFamilyRegistry("ancient_stone", Blocks.STONE).registerAll(ITEM_GROUP);
 		new AntiBlockFamily().registerAll(ITEM_GROUP);
 	}
 }
