@@ -91,7 +91,7 @@ curseforge {
 	project {
 		id = "409412"
 		changelog = "A port of the famous Chisel mod on the Fabric loader"
-		releaseType = "alpha"
+		releaseType = "beta"
 		addGameVersion "${project.minecraft_version}"
 
 		relations {

@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "buildersblocks",
-    "version": "1.16.3-alpha.2",
+    "version": "1.16.3-beta.1",
 
     "name": "Chisel for fabric",
     "description": "This is a port of the famous Chisel mod on the Fabric loader",
