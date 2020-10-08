@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "net.tiphainelaurent.buildersblocks.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [],
+    "client": [
+        "RecipesRegistrationMixin",
+        "LootTablesRegistrationMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
