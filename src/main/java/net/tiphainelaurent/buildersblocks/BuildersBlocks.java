@@ -25,7 +25,7 @@ public class BuildersBlocks implements ModInitializer
 {
 	public static final String MOD_ID = "buildersblocks";
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "general"))
- 																	 .icon(() -> new ItemStack(Items.STONE))
+ 																	 .icon(() -> new ItemStack(Items.STONECUTTER))
 																	 .build();
 
 	public static Path MAIN_DIRECTORY;

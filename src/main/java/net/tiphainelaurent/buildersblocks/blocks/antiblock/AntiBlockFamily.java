@@ -4,7 +4,6 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -13,13 +12,10 @@ import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tiphainelaurent.buildersblocks.BuildersBlocks;
-import net.tiphainelaurent.buildersblocks.api.FamilyRegistry;
+import net.tiphainelaurent.buildersblocks.api.familyregistry.FamilyRegistry;
 
 public class AntiBlockFamily extends FamilyRegistry
 {
-    private static final Set<Item> ancestors = Set.of(
-        Items.GLOWSTONE
-    );
     private final String glowstone = Registry.ITEM.getId(Items.GLOWSTONE).getPath();
 
     private static final Set<Identifier> blocks = Set.of(
@@ -42,7 +38,7 @@ public class AntiBlockFamily extends FamilyRegistry
     );
 
     @Override
-    public Set<Identifier> getBlocks()
+    public Set<Identifier> getBlocksId()
     {
         return blocks;
     }
@@ -85,7 +81,7 @@ public class AntiBlockFamily extends FamilyRegistry
     }
 
     @Override
-    public String getTextureDirectory() {
+    public String getFamilyName() {
         return "antiblock";
     }
 }
