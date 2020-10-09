@@ -24,6 +24,7 @@ public class Configuration implements ConfigData {
     public boolean hardenedclay = true;
     public boolean ice = true;
     public boolean magma = true;
+    public boolean planks = true;
     public boolean purpur = true;
     public boolean quartz = true;
     public boolean redstone = true;
