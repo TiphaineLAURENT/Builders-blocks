@@ -93,11 +93,13 @@ curseforge {
 	project {
 		id = "409412"
 		changelog = "A port of the famous Chisel mod on the Fabric loader"
-		releaseType = "beta"
+		releaseType = "${project.mod_release_type}"
 		addGameVersion "${project.minecraft_version}"
 
 		relations {
 			requiredLibrary "fabric-api"
+
+			embeddedLibrary "auto-config-updated-api"
 
 			optionalDependency "roughly-enough-items"
 		}
