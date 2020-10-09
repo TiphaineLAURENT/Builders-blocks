@@ -101,7 +101,7 @@ curseforge {
 		}
 
 		mainArtifact(jar) {
-			displayName = "Builders'blocks version: ${project.version}"
+			displayName = "Builders' Blocks version: ${project.version}"
 		}
 	}
 }
