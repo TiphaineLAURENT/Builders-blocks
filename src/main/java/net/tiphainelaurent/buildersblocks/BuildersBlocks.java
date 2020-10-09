@@ -1,5 +1,7 @@
 package net.tiphainelaurent.buildersblocks;
 
+import java.util.Arrays;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,25 +17,28 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.PlanksFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.SimpleFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.blocks.antiblock.AntiBlockFamily;
 import net.tiphainelaurent.buildersblocks.config.Configuration;
 
-public class BuildersBlocks implements ModInitializer {
+public class BuildersBlocks implements ModInitializer
+{
 	public static final String MOD_ID = "buildersblocks";
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "general"))
-			.icon(() -> new ItemStack(Items.STONECUTTER)).build();
+		.icon(() -> new ItemStack(Items.STONECUTTER)).build();
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static Configuration configuration;
 
 	public static final Block EXAMPLE_BLOCK = net.tiphainelaurent.buildersblocks.api.helpers.Block
-			.builder(Blocks.ANDESITE).mineable().build(MOD_ID, "example");
+		.builder(Blocks.ANDESITE).mineable().build(MOD_ID, "example");
 	public static final Item EXAMPLE_ITEM = net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
-			.fromBlock(EXAMPLE_BLOCK).group(ITEM_GROUP).build(MOD_ID, "example");
+		.fromBlock(EXAMPLE_BLOCK).group(ITEM_GROUP).build(MOD_ID, "example");
 
 	@Override
-	public void onInitialize() {
+	public void onInitialize()
+	{
 		configuration = AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new).getConfig();
 
 		// new SimpleFamilyRegistry("ancient_stone",
@@ -49,12 +54,18 @@ public class BuildersBlocks implements ModInitializer {
 			new SimpleFamilyRegistry("basalt", Blocks.BASALT).registerAll(ITEM_GROUP);
 
 		// new SimpleFamilyRegistry("blood_magic",).registerAll(ITEM_GROUP);
-		// new SimpleFamilyRegistry("bookshelf",).registerAll(ITEM_GROUP);
+		// if (configuration.bookshelf)
+		// new GenericFamilyRegistry("bookshelf",
+		// Blocks.BOOKSHELF).with(Arrays.asList("abandoned", "brim", "cans",
+		// "historician", "hoarder", "necromancer-novice", "necromancer",
+		// "papers", "rainbow", "redtomes"))
+		// .registerAll(ITEM_GROUP);
 
 		if (configuration.bricks)
 			new SimpleFamilyRegistry("bricks", Blocks.BRICKS).registerAll(ITEM_GROUP);
-		// new SimpleFamilyRegistry("certus",
-		// Blocks.QUARTZ_BLOCK).registerAll(ITEM_GROUP);
+
+		if (configuration.certus)
+			new SimpleFamilyRegistry("certus", Blocks.QUARTZ_BLOCK).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("cloud",).registerAll(ITEM_GROUP);
 
 		if (configuration.charcoal)
@@ -68,8 +79,11 @@ public class BuildersBlocks implements ModInitializer {
 		if (configuration.cobblestone)
 			new SimpleFamilyRegistry("cobblestone", Blocks.COBBLESTONE).registerAll(ITEM_GROUP);
 
-		if (configuration.concrete) {
-			// new SimpleFamilyRegistry("concrete",).registerAll(ITEM_GROUP);
+		if (configuration.concrete)
+		{
+			new GenericFamilyRegistry("concrete", Blocks.STONE).with(Arrays.asList("block", "blocks", "default",
+				"doubleslab-side", "weathered-block-half-side", "weathered-block", "weathered-bblocks",
+				"weathered-doubleslab-side", "weathered-half-side", "weathered")).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_black", Blocks.BLACK_CONCRETE).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_blue", Blocks.BLUE_CONCRETE).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_brown", Blocks.BROWN_CONCRETE).registerAll(ITEM_GROUP);
@@ -100,7 +114,8 @@ public class BuildersBlocks implements ModInitializer {
 			new SimpleFamilyRegistry("endstone", Blocks.END_STONE).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("factory",).registerAll(ITEM_GROUP);
 
-		// new SimpleFamilyRegistry("fluid", Blocks.STONE).registerAll(ITEM_GROUP);
+		// new SimpleFamilyRegistry("fluid",
+		// Blocks.STONE).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("futura",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("glass",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("glass_stained",).registerAll(ITEM_GROUP);
@@ -124,14 +139,16 @@ public class BuildersBlocks implements ModInitializer {
 		// new SimpleFamilyRegistry("ironpane",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("laboratory",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("lapis",).registerAll(ITEM_GROUP);
-		// new SimpleFamilyRegistry("limestone", Blocks.STONE).registerAll(ITEM_GROUP);
+		// new SimpleFamilyRegistry("limestone",
+		// Blocks.STONE).registerAll(ITEM_GROUP);
 
 		if (configuration.magma)
 			new SimpleFamilyRegistry("magma", Blocks.MAGMA_BLOCK).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("marble",
 		// Blocks.QUARTZ_BLOCK).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("marblepillar",).registerAll(ITEM_GROUP);
-		// new SimpleFamilyRegistry("parblepillarslab",).registerAll(ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("parblepillarslab",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("marbleslab",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("metals",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("netherbrick",).registerAll(ITEM_GROUP);
@@ -139,7 +156,8 @@ public class BuildersBlocks implements ModInitializer {
 		// new SimpleFamilyRegistry("obsidian",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("paper",).registerAll(ITEM_GROUP);
 
-		if (configuration.planks) {
+		if (configuration.planks)
+		{
 			new PlanksFamilyRegistry("planks-acacia", Blocks.ACACIA_PLANKS).registerAll(ITEM_GROUP);
 			new PlanksFamilyRegistry("planks-birch", Blocks.BIRCH_PLANKS).registerAll(ITEM_GROUP);
 			new PlanksFamilyRegistry("planks-dark-oak", Blocks.DARK_OAK_PLANKS).registerAll(ITEM_GROUP);
@@ -161,10 +179,13 @@ public class BuildersBlocks implements ModInitializer {
 			new SimpleFamilyRegistry("redstone", Blocks.REDSTONE_BLOCK).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("redstonelamp",).registerAll(ITEM_GROUP);
 
-		if (configuration.sandstone) {
-			// new SimpleFamilyRegistry("sandstone-scribbles",).registerAll(ITEM_GROUP);
+		if (configuration.sandstone)
+		{
+			// new
+			// SimpleFamilyRegistry("sandstone-scribbles",).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("sandstonered", Blocks.RED_SANDSTONE).registerAll(ITEM_GROUP);
-			// new SimpleFamilyRegistry("sandstonered-scribbles",).registerAll(ITEM_GROUP);
+			// new
+			// SimpleFamilyRegistry("sandstonered-scribbles",).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("sandstoneyellow", Blocks.SANDSTONE).registerAll(ITEM_GROUP);
 		}
 

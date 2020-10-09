@@ -6,13 +6,18 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry.Category;
 
 import net.tiphainelaurent.buildersblocks.BuildersBlocks;
 
-@Config(name=BuildersBlocks.MOD_ID)
-public class Configuration implements ConfigData {
-    @Category(value = "Families")
+@Config(
+    name = BuildersBlocks.MOD_ID)
+public class Configuration implements ConfigData
+{
+    @Category(
+        value = "Families")
     public boolean andesite = true;
     public boolean antiblock = true;
     public boolean basalt = true;
+    public boolean bookshelf = true;
     public boolean bricks = true;
+    public boolean certus = false;
     public boolean charcoal = true;
     public boolean coal = true;
     public boolean cobblestone = true;

@@ -12,7 +12,8 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 import net.tiphainelaurent.buildersblocks.BuildersBlocks;
 
-public abstract class FamilyRegistry {
+public abstract class FamilyRegistry
+{
     abstract public Set<Identifier> getBlocksId();
 
     abstract public Block getAncestor();
@@ -23,7 +24,8 @@ public abstract class FamilyRegistry {
 
     abstract public String getFamilyName();
 
-    public void registerAll(final ItemGroup group) {
+    public void registerAll(final ItemGroup group)
+    {
         final Set<Identifier> blockIds = getBlocksId();
         final List<Block> blocks = new ArrayList<>(blockIds.size());
         final String namespace = BuildersBlocks.MOD_ID;
@@ -37,14 +39,14 @@ public abstract class FamilyRegistry {
             blockIds.forEach((blockId) -> {
                 final String blockName = blockId.getPath();
                 Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
-                        .asItem(group).build(namespace, blockName);
+                    .asItem(group).build(namespace, blockName);
 
                 final Identifier blockModelId = new Identifier(namespace, "block/" + blockName);
                 pack.addBlockState(blockId, state -> state.variant("", variant -> variant.model(blockModelId)));
                 pack.addBlockModel(blockId,
-                        model -> model.parent(new Identifier("block/cube_all")).texture("all",
-                                new Identifier(BuildersBlocks.MOD_ID, String.format("block/%s/%s", familyName,
-                                        blockName.substring(blockName.lastIndexOf("_") + 1)))));
+                    model -> model.parent(new Identifier("block/cube_all")).texture("all",
+                        new Identifier(BuildersBlocks.MOD_ID, String.format("block/%s/%s", familyName,
+                            blockName.substring(blockName.lastIndexOf("_") + 1)))));
                 pack.addItemModel(blockId, model -> model.parent(blockModelId));
 
                 blocks.add(block);
@@ -56,7 +58,7 @@ public abstract class FamilyRegistry {
 
             blocks.forEach((block) -> {
                 net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
-                        .withRecipe(getReversedRecipe(parent, block));
+                    .withRecipe(getReversedRecipe(parent, block));
             });
         });
     }
