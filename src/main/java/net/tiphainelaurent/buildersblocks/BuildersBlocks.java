@@ -1,8 +1,5 @@
 package net.tiphainelaurent.buildersblocks;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,10 +7,10 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,17 +27,13 @@ public class BuildersBlocks implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static Configuration configuration;
 
-	// public static final Block EXAMPLE_BLOCK =
-	// net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(Blocks.ANDESITE)
-	// .mineable()
-	// .build(MOD_ID, "example");
+	public static final Block EXAMPLE_BLOCK = net.tiphainelaurent.buildersblocks.api.helpers.Block
+			.builder(Blocks.ANDESITE).mineable().build(MOD_ID, "example");
+	public static final Item EXAMPLE_ITEM = net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
+			.fromBlock(EXAMPLE_BLOCK).group(ITEM_GROUP).build(MOD_ID, "example");
 
 	@Override
 	public void onInitialize() {
-		// net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
-		// .fromBlock(EXAMPLE_BLOCK)
-		// .group(ITEM_GROUP)
-		// .build(MOD_ID, "example");
 		configuration = AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new).getConfig();
 
 		// new GenericFamilyRegistry("ancient_stone",

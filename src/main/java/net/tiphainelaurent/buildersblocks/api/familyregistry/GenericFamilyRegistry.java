@@ -48,10 +48,17 @@ public class GenericFamilyRegistry extends FamilyRegistry {
         return new StonecuttingRecipe(
                 new Identifier(BuildersBlocks.MOD_ID,
                         String.format("stonecutting-%s_to_%s", ancestorName, Registry.BLOCK.getId(current).getPath())),
-                "BuildersBlocks", Ingredient.ofItems(Items.STONE), new ItemStack(current));
+                "BuildersBlocks", Ingredient.ofItems(ancestor), new ItemStack(current));
     }
 
     public Recipe<?> getReversedRecipe(final Block parent, final Block current) {
+        if (parent.equals(current)) {
+            return new StonecuttingRecipe(
+                    new Identifier(BuildersBlocks.MOD_ID,
+                            String.format("stonecutting-%s_to_%s", Registry.BLOCK.getId(current).getPath(),
+                                    ancestorName)),
+                    "BuildersBlocks", Ingredient.ofItems(current), new ItemStack(ancestor));
+        }
         return new StonecuttingRecipe(
                 new Identifier(BuildersBlocks.MOD_ID,
                         String.format("stonecutting-%s_to_%s", Registry.BLOCK.getId(current).getPath(),
