@@ -1,6 +1,7 @@
 package net.tiphainelaurent.buildersblocks;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -198,5 +199,10 @@ public class BuildersBlocks implements ModInitializer
 		// new SimpleFamilyRegistry("valentines",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("voidstone",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("wool",).registerAll(ITEM_GROUP);
+	}
+
+	private void registerFamily(final String familyName, final Block ancestor, final Collection<String> names)
+	{
+
 	}
 }
