@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "buildersblocks",
-    "version": "1.16.3-beta.4",
+    "version": "1.16.3-beta.5",
 
     "name": "Builders' Blocks",
     "description": "This is a port of the famous Chisel mod on the Fabric loader",

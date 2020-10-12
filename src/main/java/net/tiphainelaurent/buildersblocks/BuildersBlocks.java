@@ -17,11 +17,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.PlanksFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.SimpleFamilyRegistry;
-import net.tiphainelaurent.buildersblocks.blocks.antiblock.AntiBlockFamily;
 import net.tiphainelaurent.buildersblocks.config.Configuration;
 
 public class BuildersBlocks implements ModInitializer
@@ -48,7 +48,9 @@ public class BuildersBlocks implements ModInitializer
 			new SimpleFamilyRegistry("andesite", Blocks.ANDESITE).registerAll(ITEM_GROUP);
 
 		if (configuration.antiblock)
-			new AntiBlockFamily().registerAll(ITEM_GROUP);
+			new GenericFamilyRegistry("antiblock", Blocks.GLOWSTONE).with(Arrays.asList(
+				"black", "blue", "brown", "cyan", "gray", "green", "light_blue", "lime",
+				"magenta", "orange", "pink", "purple", "red", "silver", "white", "yellow")).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("arcane_stone",
 		// Blocks.STONE).registerAll(ITEM_GROUP);
 		if (configuration.basalt)
@@ -82,9 +84,10 @@ public class BuildersBlocks implements ModInitializer
 
 		if (configuration.concrete)
 		{
-			new GenericFamilyRegistry("concrete", Blocks.STONE).with(Arrays.asList("block", "blocks", "default",
-				"doubleslab-side", "weathered-block-half-side", "weathered-block", "weathered-bblocks",
-				"weathered-doubleslab-side", "weathered-half-side", "weathered")).registerAll(ITEM_GROUP);
+			new GenericFamilyRegistry("concrete", Blocks.STONE).with(Arrays.asList(
+				"block", "blocks", "default", "doubleslab-side", "weathered-block-half-side",
+				"weathered-block", "weathered-bblocks", "weathered-doubleslab-side", "weathered-half-side",
+				"weathered")).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_black", Blocks.BLACK_CONCRETE).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_blue", Blocks.BLUE_CONCRETE).registerAll(ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_brown", Blocks.BROWN_CONCRETE).registerAll(ITEM_GROUP);
@@ -138,7 +141,13 @@ public class BuildersBlocks implements ModInitializer
 		// new SimpleFamilyRegistry("icepillar",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("iron",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("ironpane",).registerAll(ITEM_GROUP);
-		// new SimpleFamilyRegistry("laboratory",).registerAll(ITEM_GROUP);
+
+		// if (configuration.laboratory)
+		// {
+		// 	net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(Blocks.IRON_BLOCK).asItem(ITEM_GROUP).mineable().build(MOD_ID, "laboratory_checkertile");
+		// 	net.tiphainelaurent.buildersblocks.api.helpers.Item.RECIPES.add(new ShapedRecipe())
+		// 	new SimpleFamilyRegistry("laboratory",).registerAll(ITEM_GROUP);
+		// }
 		// new SimpleFamilyRegistry("lapis",).registerAll(ITEM_GROUP);
 		// new SimpleFamilyRegistry("limestone",
 		// Blocks.STONE).registerAll(ITEM_GROUP);
@@ -202,7 +211,5 @@ public class BuildersBlocks implements ModInitializer
 	}
 
 	private void registerFamily(final String familyName, final Block ancestor, final Collection<String> names)
-	{
-
-	}
+	{}
 }
