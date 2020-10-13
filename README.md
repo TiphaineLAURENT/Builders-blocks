@@ -1,5 +1,9 @@
 # Builders' Blocks
 
+## Curseforge
+
+https://www.curseforge.com/minecraft/mc-mods/builders-blocks
+
 ## Licensing
 
 All images contained by the following directories
