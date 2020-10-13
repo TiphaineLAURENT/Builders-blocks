@@ -1,8 +1,9 @@
 package net.tiphainelaurent.buildersblocks;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
+import com.mojang.brigadier.Command;
 import com.swordglowsblue.artifice.api.Artifice;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,17 +14,30 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.mixin.loot.table.LootSupplierBuilderHooks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.MinecraftClientGame;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.PlanksFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.SimpleFamilyRegistry;
@@ -46,6 +60,25 @@ public class BuildersBlocks implements ModInitializer
 	public void onInitialize()
 	{
 		configuration = AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new).getConfig();
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			dispatcher.register(CommandManager.literal("mine").executes(context -> {
+				final MinecraftClient client = MinecraftClient.getInstance();
+				if (client.crosshairTarget.getType() == HitResult.Type.BLOCK)
+				{
+					final BlockHitResult target = (BlockHitResult)client.crosshairTarget;
+					final ServerWorld world = context.getSource().getWorld();
+					final BlockEntity blockEntity = world.getBlockEntity(target.getBlockPos());
+					final BlockState blockState = world.getBlockState(target.getBlockPos());
+					final List<ItemStack> stacks = Block.getDroppedStacks(blockState, world, target.getBlockPos(), blockEntity);
+
+					final ServerPlayerEntity player = context.getSource().getPlayer();
+					for (final ItemStack stack : stacks)
+						player.giveItemStack(stack);
+				}
+				return Command.SINGLE_SUCCESS;
+			}));
+		});
 
 		Artifice.registerAssets(new Identifier(MOD_ID, "resourcepack"), pack -> {
 			pack.setDisplayName("Builders' Blocks resources");
@@ -119,7 +152,16 @@ public class BuildersBlocks implements ModInitializer
 				new SimpleFamilyRegistry("concrete_white", Blocks.WHITE_CONCRETE).registerAll(ITEM_GROUP, pack);
 				new SimpleFamilyRegistry("concrete_yellow", Blocks.YELLOW_CONCRETE).registerAll(ITEM_GROUP, pack);
 			}
-			// new SimpleFamilyRegistry("diamond",).registerAll(ITEM_GROUP);
+
+			if (configuration.diamond)
+				new GenericFamilyRegistry("diamond", Blocks.DIAMOND_BLOCK)
+					.with(Arrays.asList("terrain-diamond-bismuth", "terrain-diamond-cells", "terrain-diamond-crushed",
+						"terrain-diamond-embossed-bottom", "terrain-diamond-embossed-side",
+						"terrain-diamond-embossed-top", "terrain-diamond-four", "terrain-diamond-fourornate",
+						"terrain-diamond-gem-bottom", "terrain-diamond-gem-side", "terrain-diamond-gem-top",
+						"terrain-diamond-ornatelayer", "terrain-diamond-simple-bottom", "terrain-diamond-simple-side",
+						"terrain-diamond-simple-top", "terrain-diamond-spaceblack", "terrain-diamond-zelda"))
+					.registerAll(ITEM_GROUP, pack);
 
 			if (configuration.diorite)
 				new SimpleFamilyRegistry("diorite", Blocks.DIORITE).registerAll(ITEM_GROUP, pack);
@@ -206,7 +248,7 @@ public class BuildersBlocks implements ModInitializer
 			// new
 			// SimpleFamilyRegistry("marblepillar",).registerAll(ITEM_GROUP);
 			// new
-			// SimpleFamilyRegistry("parblepillarslab",).registerAll(ITEM_GROUP);
+			// SimpleFamilyRegistry("marblepillarslab",).registerAll(ITEM_GROUP);
 			// new SimpleFamilyRegistry("marbleslab",).registerAll(ITEM_GROUP);
 			// new SimpleFamilyRegistry("metals",).registerAll(ITEM_GROUP);
 			// new SimpleFamilyRegistry("netherbrick",).registerAll(ITEM_GROUP);
@@ -236,8 +278,10 @@ public class BuildersBlocks implements ModInitializer
 			if (configuration.redstone)
 				new SimpleFamilyRegistry("redstone", Blocks.REDSTONE_BLOCK).without("raw").without("weaver")
 					.registerAll(ITEM_GROUP, pack);
-			// new
-			// SimpleFamilyRegistry("redstonelamp",).registerAll(ITEM_GROUP);
+
+			// if (configuration.redstonelamp)
+			// new GenericFamilyRegistry("redstonelamp",
+			// Blocks.REDSTONE_LAMP).with("square-off").registerAll(ITEM_GROUP);
 
 			if (configuration.sandstone)
 			{
@@ -262,7 +306,4 @@ public class BuildersBlocks implements ModInitializer
 		});
 
 	}
-
-	private void registerFamily(final String familyName, final Block ancestor, final Collection<String> names)
-	{}
 }

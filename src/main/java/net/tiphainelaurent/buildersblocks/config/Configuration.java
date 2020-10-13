@@ -22,6 +22,7 @@ public class Configuration implements ConfigData
     public boolean coal = true;
     public boolean cobblestone = true;
     public boolean concrete = true;
+    public boolean diamond = true;
     public boolean diorite = true;
     public boolean endstone = true;
     public boolean glowstone = true;
