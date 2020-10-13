@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.swordglowsblue.artifice.api.Artifice;
+import com.swordglowsblue.artifice.api.ArtificeResourcePack.ClientResourcePackBuilder;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
@@ -24,7 +24,7 @@ public abstract class FamilyRegistry
 
     abstract public String getFamilyName();
 
-    public void registerAll(final ItemGroup group)
+    public void registerAll(final ItemGroup group, final ClientResourcePackBuilder pack)
     {
         final Set<Identifier> blockIds = getBlocksId();
         final List<Block> blocks = new ArrayList<>(blockIds.size());
@@ -32,25 +32,20 @@ public abstract class FamilyRegistry
         final String familyName = getFamilyName();
         final Block ancestor = getAncestor();
 
-        Artifice.registerAssets(new Identifier(BuildersBlocks.MOD_ID, familyName), pack -> {
-            pack.setDisplayName("Chisel For Fabric resources");
-            pack.setDescription("Resources for the Chisel For Fabric mod");
+        blockIds.forEach((blockId) -> {
+            final String blockName = blockId.getPath();
+            Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
+                .asItem(group).build(namespace, blockName);
 
-            blockIds.forEach((blockId) -> {
-                final String blockName = blockId.getPath();
-                Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
-                    .asItem(group).build(namespace, blockName);
+            final Identifier blockModelId = new Identifier(namespace, "block/" + blockName);
+            pack.addBlockState(blockId, state -> state.variant("", variant -> variant.model(blockModelId)));
+            pack.addBlockModel(blockId,
+                model -> model.parent(new Identifier("block/cube_all")).texture("all",
+                    new Identifier(BuildersBlocks.MOD_ID, String.format("block/%s/%s", familyName,
+                        blockName.substring(blockName.lastIndexOf("_") + 1)))));
+            pack.addItemModel(blockId, model -> model.parent(blockModelId));
 
-                final Identifier blockModelId = new Identifier(namespace, "block/" + blockName);
-                pack.addBlockState(blockId, state -> state.variant("", variant -> variant.model(blockModelId)));
-                pack.addBlockModel(blockId,
-                    model -> model.parent(new Identifier("block/cube_all")).texture("all",
-                        new Identifier(BuildersBlocks.MOD_ID, String.format("block/%s/%s", familyName,
-                            blockName.substring(blockName.lastIndexOf("_") + 1)))));
-                pack.addItemModel(blockId, model -> model.parent(blockModelId));
-
-                blocks.add(block);
-            });
+            blocks.add(block);
         });
 
         blocks.forEach((parent) -> {

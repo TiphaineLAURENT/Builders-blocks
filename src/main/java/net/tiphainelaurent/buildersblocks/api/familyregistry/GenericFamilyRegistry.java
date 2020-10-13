@@ -46,6 +46,12 @@ public class GenericFamilyRegistry extends FamilyRegistry
         return this;
     }
 
+    public GenericFamilyRegistry without(final String name)
+    {
+        blocksName.remove(name);
+        return this;
+    }
+
     public GenericFamilyRegistry named(final String name)
     {
         familyName = name;
