@@ -1,6 +1,7 @@
 # Builders' Blocks
 
-## Curseforge
+![](https://cf.way2muchnoise.eu/409412.svg)
+![](https://cf.way2muchnoise.eu/versions/409412.svg)
 
 https://www.curseforge.com/minecraft/mc-mods/builders-blocks
 
