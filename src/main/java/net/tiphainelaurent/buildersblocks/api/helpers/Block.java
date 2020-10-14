@@ -115,7 +115,7 @@ public class Block
                         .withEntry(ItemEntry.builder(block).build())
                         .rolls(ConstantLootTableRange.create(1))
                         .withCondition(SurvivesExplosionLootCondition.builder().build());
-                    return new LootTable.Builder().pool(pool).build();
+                    return LootTable.builder().pool(pool).build();
                 });
             }
 
