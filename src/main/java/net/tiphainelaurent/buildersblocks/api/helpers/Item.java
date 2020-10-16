@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.client.model.Model;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
@@ -50,12 +51,12 @@ public class Item extends net.minecraft.item.Item
 
         public net.minecraft.item.Item build()
         {
-            return build(new Identifier(namespace, name));
+            return build(new Identifier(this.namespace, this.name));
         }
 
-        public net.minecraft.item.Item build(final String namespace_, final String name_)
+        public net.minecraft.item.Item build(final String namespace, final String name)
         {
-            return build(new Identifier(namespace_, name_));
+            return build(new Identifier(namespace, name));
         }
 
         public net.minecraft.item.Item build(final Identifier itemId)
@@ -76,22 +77,22 @@ public class Item extends net.minecraft.item.Item
             }
         }
 
-        public Item.Builder namespace(final String namespace_)
+        public Item.Builder namespace(final String namespace)
         {
-            namespace = namespace_;
+            this.namespace = namespace;
             return this;
         }
 
-        public Item.Builder name(final String name_)
+        public Item.Builder name(final String name)
         {
-            name = name_;
+            this.name = name;
             return this;
         }
 
-        public Item.Builder fromBlock(final Block block_)
+        public Item.Builder fromBlock(final Block block)
         {
             type = ITEM_TYPE.BLOCK;
-            block = block_;
+            this.block = block;
             return this;
         }
 
@@ -143,9 +144,9 @@ public class Item extends net.minecraft.item.Item
             return this;
         }
 
-        public Item.Builder recipeRemainder(final net.minecraft.item.Item recipeRemainder)
+        public Item.Builder recipeRemainder(final ItemConvertible recipeRemainder)
         {
-            settings.recipeRemainder(recipeRemainder);
+            settings.recipeRemainder(recipeRemainder.asItem());
             return this;
         }
 
@@ -155,9 +156,9 @@ public class Item extends net.minecraft.item.Item
             return this;
         }
 
-        public Item.Builder withRecipes(final Consumer<Item.Builder> consumer)
+        public Item.Builder withRecipes(final Consumer<List<Recipe<?>>> consumer)
         {
-            consumer.accept(this);
+            consumer.accept(RECIPES);
             return this;
         }
     }

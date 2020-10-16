@@ -63,7 +63,7 @@ public abstract class FamilyRegistry
         blockIds.forEach((blockId) -> {
             final String blockName = blockId.getPath();
             Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
-                .asItem(group).build(blockId);
+                .asItem(item -> item.group(group)).build(blockId);
 
             final Identifier blockModelId = new Identifier(namespace, "block/" + blockName);
 

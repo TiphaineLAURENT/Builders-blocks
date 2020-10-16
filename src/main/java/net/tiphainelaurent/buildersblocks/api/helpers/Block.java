@@ -1,7 +1,10 @@
 package net.tiphainelaurent.buildersblocks.api.helpers;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -94,12 +97,36 @@ public class Block extends net.minecraft.block.Block
 
         public Block build()
         {
+            return build(new Identifier(this.namespace, this.name));
+        }
+
+        public Block build(final String namespace, final String name)
+        {
             return build(new Identifier(namespace, name));
         }
 
-        public Block build(final String namespace_, final String name_)
+        public List<Block> build(final String namespace, final String... blocksName)
         {
-            return build(new Identifier(namespace_, name_));
+            final List<Block> blocks = new ArrayList<>(blocksName.length);
+
+            for (final String blockName : blocksName)
+            {
+                blocks.add(build(namespace, blockName));
+            }
+
+            return blocks;
+        }
+
+        public List<Block> build(final Identifier... blocksId)
+        {
+            final List<Block> blocks = new ArrayList<>(blocksId.length);
+
+            for (final Identifier blockId : blocksId)
+            {
+                blocks.add(build(blockId));
+            }
+
+            return blocks;
         }
 
         public Block build(final Identifier blockId)
@@ -126,15 +153,15 @@ public class Block extends net.minecraft.block.Block
             return block;
         }
 
-        public Block.Builder namespace(final String namespace_)
+        public Block.Builder namespace(final String namespace)
         {
-            namespace = namespace_;
+            this.namespace = namespace;
             return this;
         }
 
-        public Block.Builder name(final String name_)
+        public Block.Builder name(final String name)
         {
-            name = name_;
+            this.name = name;
             return this;
         }
 
@@ -332,9 +359,13 @@ public class Block extends net.minecraft.block.Block
 
         public Block.Builder asItem(final ItemGroup itemGroup)
         {
-            itemBuilder = net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
-                .group(itemGroup);
+            itemBuilder = Item.builder().group(itemGroup);
+            return this;
+        }
 
+        public Block.Builder asItem(final Consumer<Item.Builder> consumer)
+        {
+            consumer.accept(Item.builder());
             return this;
         }
     }

@@ -36,6 +36,8 @@ public class BuildersBlocks implements ModInitializer
         {
             final Block EXAMPLE_BLOCK = Block.builder(Blocks.COBBLESTONE)
                 .mineable().build(BuildersBlocks.MOD_ID, "example");
+
+            @SuppressWarnings("unused")
             final net.minecraft.item.Item EXAMPLE_ITEM = Item.builder()
                 .fromBlock(EXAMPLE_BLOCK).group(BuildersBlocks.ITEM_GROUP).build(BuildersBlocks.MOD_ID, "example");
         }

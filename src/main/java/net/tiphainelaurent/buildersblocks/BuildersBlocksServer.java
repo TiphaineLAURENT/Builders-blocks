@@ -16,6 +16,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.PlanksFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.SimpleFamilyRegistry;
+import net.tiphainelaurent.buildersblocks.api.helpers.Item;
 
 public class BuildersBlocksServer implements DedicatedServerModInitializer
 {
@@ -37,7 +38,8 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 		if (BuildersBlocks.configuration.basalt)
 			new SimpleFamilyRegistry("basalt", Blocks.BASALT).registerAll(BuildersBlocks.ITEM_GROUP);
 
-		// new SimpleFamilyRegistry("blood_magic",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("blood_magic",).registerAll(BuildersBlocks.ITEM_GROUP);
 		// if (BuildersBlocks.configuration.bookshelf)
 		// new GenericFamilyRegistry("bookshelf",
 		// Blocks.BOOKSHELF).with(Arrays.asList("abandoned", "brim", "cans",
@@ -50,7 +52,8 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 
 		if (BuildersBlocks.configuration.certus)
 			new SimpleFamilyRegistry("certus", Blocks.QUARTZ_BLOCK).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("cloud",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("cloud",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.charcoal)
 			new SimpleFamilyRegistry("coal/charcoal", Blocks.COAL_BLOCK).registerAll(BuildersBlocks.ITEM_GROUP);
@@ -75,10 +78,13 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 			new SimpleFamilyRegistry("concrete_cyan", Blocks.CYAN_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_gray", Blocks.GRAY_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_green", Blocks.GREEN_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
-			new SimpleFamilyRegistry("concrete_lightblue", Blocks.LIGHT_BLUE_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
-			new SimpleFamilyRegistry("concrete_lightgray", Blocks.LIGHT_GRAY_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
+			new SimpleFamilyRegistry("concrete_lightblue", Blocks.LIGHT_BLUE_CONCRETE)
+				.registerAll(BuildersBlocks.ITEM_GROUP);
+			new SimpleFamilyRegistry("concrete_lightgray", Blocks.LIGHT_GRAY_CONCRETE)
+				.registerAll(BuildersBlocks.ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_lime", Blocks.LIME_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
-			new SimpleFamilyRegistry("concrete_magenta", Blocks.MAGENTA_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
+			new SimpleFamilyRegistry("concrete_magenta", Blocks.MAGENTA_CONCRETE)
+				.registerAll(BuildersBlocks.ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_orange", Blocks.ORANGE_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
 			new SimpleFamilyRegistry("concrete_pink", Blocks.PINK_CONCRETE).registerAll(BuildersBlocks.ITEM_GROUP);
 			// new SimpleFamilyRegistry("concrete_powder",
@@ -101,27 +107,34 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 
 		if (BuildersBlocks.configuration.diorite)
 			new SimpleFamilyRegistry("diorite", Blocks.DIORITE).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("dirt",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("emerald",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("dirt",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("emerald",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.endstone)
 			new SimpleFamilyRegistry("endstone", Blocks.END_STONE).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("factory",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("factory",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		// new SimpleFamilyRegistry("fluid",
 		// Blocks.STONE).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("futura",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("glass",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("futura",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("glass",).registerAll(BuildersBlocks.ITEM_GROUP);
 		// new
 		// SimpleFamilyRegistry("glass_stained",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("glassdyed",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("glassdyed",).registerAll(BuildersBlocks.ITEM_GROUP);
 		// new
 		// SimpleFamilyRegistry("glasspaneddyed",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.glowstone)
 			new SimpleFamilyRegistry("glowstone", Blocks.GLOWSTONE).without("raw").without("weaver")
 				.registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("gold",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("gold",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.granite)
 			new SimpleFamilyRegistry("granite", Blocks.GRANITE).registerAll(BuildersBlocks.ITEM_GROUP);
@@ -131,9 +144,12 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 
 		if (BuildersBlocks.configuration.ice)
 			new SimpleFamilyRegistry("ice", Blocks.ICE).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("icepillar",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("iron",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("ironpane",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("icepillar",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("iron",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("ironpane",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.laboratory)
 		{
@@ -154,9 +170,8 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 			recipe.add(Ingredient.ofItems(Items.STONE));
 			recipe.add(Ingredient.ofItems(Items.STONE));
 
-			net.tiphainelaurent.buildersblocks.api.helpers.Item.RECIPES
-				.add(new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"), "Builders' Blocks", 3, 3,
-					recipe, new ItemStack(laboratoryBlock)));
+			Item.RECIPES.add(new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"), "Builders' Blocks", 3,
+					3, recipe, new ItemStack(laboratoryBlock)));
 
 			new GenericFamilyRegistry(laboratoryFamilyName, laboratoryBlock)
 				.with(Arrays.asList("clearscreen", "directionleft-top", "directionright-top", "dottedpanel-top",
@@ -164,7 +179,8 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 					"smallsteel-top", "smalltile", "wallpanel-top", "wallvents-top"))
 				.registerAll(BuildersBlocks.ITEM_GROUP);
 		}
-		// new SimpleFamilyRegistry("lapis",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("lapis",).registerAll(BuildersBlocks.ITEM_GROUP);
 		// new SimpleFamilyRegistry("limestone",
 		// Blocks.STONE).registerAll(BuildersBlocks.ITEM_GROUP);
 
@@ -176,12 +192,18 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 		// SimpleFamilyRegistry("marblepillar",).registerAll(BuildersBlocks.ITEM_GROUP);
 		// new
 		// SimpleFamilyRegistry("marblepillarslab",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("marbleslab",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("metals",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("netherbrick",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("netherrack",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("obsidian",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("paper",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("marbleslab",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("metals",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("netherbrick",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("netherrack",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("obsidian",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("paper",).registerAll(BuildersBlocks.ITEM_GROUP);
 
 		if (BuildersBlocks.configuration.planks)
 		{
@@ -222,12 +244,19 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 
 		if (BuildersBlocks.configuration.stone)
 			new SimpleFamilyRegistry("stone", Blocks.STONE).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("technical",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("temple",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("templemossy",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("tyrian",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("valentines",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("voidstone",).registerAll(BuildersBlocks.ITEM_GROUP);
-		// new SimpleFamilyRegistry("wool",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("technical",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("temple",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("templemossy",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("tyrian",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("valentines",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("voidstone",).registerAll(BuildersBlocks.ITEM_GROUP);
+		// new
+		// SimpleFamilyRegistry("wool",).registerAll(BuildersBlocks.ITEM_GROUP);
 	}
 }

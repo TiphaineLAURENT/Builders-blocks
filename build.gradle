@@ -93,7 +93,7 @@ curseforge {
 	apiKey = "33623805-00c2-49c5-9803-82d9637589d4"
 	project {
 		id = "409412"
-		changelog = "Update dependencies"
+		changelog = "${project.changelog}"
 		releaseType = "${project.mod_release_type}"
 		addGameVersion "${project.minecraft_version}"
 
