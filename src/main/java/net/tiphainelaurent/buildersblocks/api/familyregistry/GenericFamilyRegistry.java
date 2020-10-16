@@ -19,7 +19,7 @@ public class GenericFamilyRegistry extends FamilyRegistry
 {
     final Block ancestor;
     String ancestorName;
-    String familyName;
+    String familyName = "";
     final Set<String> blocksName = new HashSet<>();
 
     public GenericFamilyRegistry(final Block ancestor)
@@ -76,28 +76,29 @@ public class GenericFamilyRegistry extends FamilyRegistry
         return ancestor;
     }
 
-    public Recipe<?> getRecipe(final Block current)
+    public Recipe<?> getRecipe(final Identifier current)
     {
         return new StonecuttingRecipe(
-            new Identifier(BuildersBlocks.MOD_ID,
-                String.format("stonecutting-%s_to_%s", ancestorName, Registry.BLOCK.getId(current).getPath())),
-            "BuildersBlocks", Ingredient.ofItems(ancestor), new ItemStack(current));
+            new Identifier(current.getNamespace(),
+                String.format("stonecutting-%s_to_%s", ancestorName, current.getPath())),
+            "BuildersBlocks", Ingredient.ofItems(ancestor), new ItemStack(Registry.BLOCK.get(current)));
     }
 
-    public Recipe<?> getReversedRecipe(final Block parent, final Block current)
+    public Recipe<?> getReversedRecipe(final Identifier parent, final Identifier current)
     {
+        final Block currentBlock = Registry.BLOCK.get(current);
+
         if (parent.equals(current))
         {
             return new StonecuttingRecipe(
-                new Identifier(BuildersBlocks.MOD_ID,
-                    String.format("stonecutting-%s_to_%s", Registry.BLOCK.getId(current).getPath(),
-                        ancestorName)),
-                "BuildersBlocks", Ingredient.ofItems(current), new ItemStack(ancestor));
+                new Identifier(current.getNamespace(),
+                    String.format("stonecutting-%s_to_%s", current.getPath(), ancestorName)),
+                "BuildersBlocks", Ingredient.ofItems(currentBlock), new ItemStack(ancestor));
         }
+
         return new StonecuttingRecipe(
-            new Identifier(BuildersBlocks.MOD_ID,
-                String.format("stonecutting-%s_to_%s", Registry.BLOCK.getId(current).getPath(),
-                    Registry.BLOCK.getId(parent).getPath())),
-            "BuildersBlocks", Ingredient.ofItems(current), new ItemStack(parent));
+            new Identifier(current.getNamespace(),
+                String.format("stonecutting-%s_to_%s", current.getPath(), parent.getPath())),
+            "BuildersBlocks", Ingredient.ofItems(currentBlock), new ItemStack(currentBlock));
     }
 }

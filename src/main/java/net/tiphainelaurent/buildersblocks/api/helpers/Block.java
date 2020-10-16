@@ -365,7 +365,8 @@ public class Block extends net.minecraft.block.Block
 
         public Block.Builder asItem(final Consumer<Item.Builder> consumer)
         {
-            consumer.accept(Item.builder());
+            itemBuilder = Item.builder();
+            consumer.accept(itemBuilder);
             return this;
         }
     }

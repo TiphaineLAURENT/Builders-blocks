@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import net.fabricmc.fabric.api.item.v1.EquipmentSlotProvider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -29,7 +30,7 @@ public class Item extends net.minecraft.item.Item
     }
 
     public static final Map<Identifier, Model> ITEMS = new HashMap<>();
-    public static List<Recipe<?>> RECIPES = new LinkedList<>();
+    public static List<Supplier<Recipe<?>>> RECIPES = new LinkedList<>();
 
     public Item(Item.Settings settings)
     {
@@ -150,13 +151,13 @@ public class Item extends net.minecraft.item.Item
             return this;
         }
 
-        public Item.Builder withRecipe(final Recipe<?> recipe)
+        public Item.Builder withRecipe(final Supplier<Recipe<?>> recipe)
         {
             RECIPES.add(recipe);
             return this;
         }
 
-        public Item.Builder withRecipes(final Consumer<List<Recipe<?>>> consumer)
+        public Item.Builder withRecipes(final Consumer<List<Supplier<Recipe<?>>>> consumer)
         {
             consumer.accept(RECIPES);
             return this;

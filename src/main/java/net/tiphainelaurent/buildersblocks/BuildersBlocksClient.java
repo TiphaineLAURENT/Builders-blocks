@@ -14,7 +14,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -226,7 +225,7 @@ public class BuildersBlocksClient implements ClientModInitializer
 				recipe.add(Ingredient.ofItems(Items.STONE));
 
 				net.tiphainelaurent.buildersblocks.api.helpers.Item.RECIPES
-					.add(new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"),
+					.add(() -> new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"),
 						"Builders' Blocks", 3, 3,
 						recipe, new ItemStack(laboratoryBlock)));
 

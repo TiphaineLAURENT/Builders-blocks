@@ -170,7 +170,7 @@ public class BuildersBlocksServer implements DedicatedServerModInitializer
 			recipe.add(Ingredient.ofItems(Items.STONE));
 			recipe.add(Ingredient.ofItems(Items.STONE));
 
-			Item.RECIPES.add(new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"), "Builders' Blocks", 3,
+			Item.RECIPES.add(() -> new ShapedRecipe(new Identifier(BuildersBlocks.MOD_ID, "shaped-laboratory"), "Builders' Blocks", 3,
 					3, recipe, new ItemStack(laboratoryBlock)));
 
 			new GenericFamilyRegistry(laboratoryFamilyName, laboratoryBlock)
