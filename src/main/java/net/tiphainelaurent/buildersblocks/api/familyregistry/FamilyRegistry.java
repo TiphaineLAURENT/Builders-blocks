@@ -36,9 +36,10 @@ public abstract class FamilyRegistry
         blockIds.forEach((blockId) -> {
             final String blockName = blockId.getPath();
             Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
-                .asItem(group).build(namespace, blockName);
+                .asItem(group).build(blockId);
 
             final Identifier blockModelId = new Identifier(namespace, "block/" + blockName);
+
             pack.addBlockState(blockId, state -> state.variant("", variant -> variant.model(blockModelId)));
             pack.addBlockModel(blockId,
                 model -> model.parent(new Identifier("block/cube_all")).texture("all",

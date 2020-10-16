@@ -34,6 +34,16 @@ public class Block extends net.minecraft.block.Block
         super(settings);
     }
 
+    public Identifier getId()
+    {
+        return Registry.BLOCK.getId(this);
+    }
+
+    public String getBlockName()
+    {
+        return getId().getPath();
+    }
+
     public static Builder builder(final Material material)
     {
         return new Builder(material);

@@ -33,6 +33,7 @@ dependencies {
 	include "com.lettuce.fudge:artifice:${project.artifice_version}"
 
 	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+	// modRuntime "io.github.nuclearfarts:cbt:${project.connected_block_textures_version}"
 }
 
 processResources {
@@ -102,6 +103,7 @@ curseforge {
 			embeddedLibrary "auto-config-updated-api"
 
 			optionalDependency "roughly-enough-items"
+			optionalDependency "connected-block-textures"
 		}
 
 		mainArtifact(jar) {
