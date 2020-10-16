@@ -20,6 +20,12 @@
     "entrypoints": {
         "main": [
             "net.tiphainelaurent.buildersblocks.BuildersBlocks"
+        ],
+        "client": [
+            "net.tiphainelaurent.buildersblocks.BuildersBlocksClient"
+        ],
+        "server": [
+            "net.tiphainelaurent.buildersblocks.BuildersBlocksServer"
         ]
     },
     "mixins": [

@@ -6,6 +6,9 @@ import java.util.Set;
 
 import com.swordglowsblue.artifice.api.ArtificeResourcePack.ClientResourcePackBuilder;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
@@ -25,6 +28,30 @@ public abstract class FamilyRegistry
 
     abstract public String getFamilyName();
 
+    @Environment(EnvType.SERVER)
+    public void registerAll(final ItemGroup group)
+    {
+        final Set<Identifier> blockIds = getBlocksId();
+        final List<Block> blocks = new ArrayList<>(blockIds.size());
+        final Block ancestor = getAncestor();
+
+        blockIds.forEach((blockId) -> {
+            Block block = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(ancestor).mineable()
+                .asItem(group).build(blockId);
+            blocks.add(block);
+        });
+
+        blocks.forEach((parent) -> {
+            net.tiphainelaurent.buildersblocks.api.helpers.Item.builder().withRecipe(getRecipe(parent));
+
+            blocks.forEach((block) -> {
+                net.tiphainelaurent.buildersblocks.api.helpers.Item.builder()
+                    .withRecipe(getReversedRecipe(parent, block));
+            });
+        });
+    }
+
+    @Environment(EnvType.CLIENT)
     public void registerAll(final ItemGroup group, final ClientResourcePackBuilder pack)
     {
         final Set<Identifier> blockIds = getBlocksId();
