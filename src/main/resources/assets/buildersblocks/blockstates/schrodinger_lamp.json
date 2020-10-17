@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "lit=false": {
+            "model": "buildersblocks:block/schrodinger_lamp"
+        },
+        "lit=true": {
+            "model": "buildersblocks:block/schrodinger_lamp_on"
+        }
+    }
+}

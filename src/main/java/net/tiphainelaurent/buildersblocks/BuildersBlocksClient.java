@@ -9,7 +9,6 @@ import com.swordglowsblue.artifice.api.Artifice;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -29,6 +28,7 @@ import net.minecraft.util.hit.HitResult;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.GenericFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.PlanksFamilyRegistry;
 import net.tiphainelaurent.buildersblocks.api.familyregistry.SimpleFamilyRegistry;
+import net.tiphainelaurent.buildersblocks.api.helpers.Block;
 
 public class BuildersBlocksClient implements ClientModInitializer
 {
@@ -201,8 +201,8 @@ public class BuildersBlocksClient implements ClientModInitializer
 				final String laboratoryFamilyName = "laboratory";
 				final String laboratoryBlockName = String.format("%s_checkertile", laboratoryFamilyName);
 				final Identifier laboratoryBlockId = new Identifier(BuildersBlocks.MOD_ID, laboratoryBlockName);
-				Block laboratoryBlock = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(Blocks.IRON_BLOCK)
-					.asItem(BuildersBlocks.ITEM_GROUP).mineable().build(laboratoryBlockId);
+				Block laboratoryBlock = Block.builder(Blocks.IRON_BLOCK)
+					.asItem((item) -> item.group(BuildersBlocks.ITEM_GROUP)).mineable().build(laboratoryBlockId);
 
 				final Identifier blockModelId = new Identifier(BuildersBlocks.MOD_ID, "block/" + laboratoryBlockName);
 				pack.addBlockState(laboratoryBlockId,

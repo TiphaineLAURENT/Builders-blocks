@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
-
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.loader.api.FabricLoader;
@@ -14,9 +14,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.state.property.Properties;
 
 import net.tiphainelaurent.buildersblocks.api.helpers.Block;
-import net.tiphainelaurent.buildersblocks.api.helpers.Item;
+import net.tiphainelaurent.buildersblocks.blocks.SchrodingerLamp;
 import net.tiphainelaurent.buildersblocks.config.Configuration;
 
 public class BuildersBlocks implements ModInitializer
@@ -34,12 +35,15 @@ public class BuildersBlocks implements ModInitializer
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment())
         {
-            final Block EXAMPLE_BLOCK = Block.builder(Blocks.COBBLESTONE)
-                .mineable().build(BuildersBlocks.MOD_ID, "example");
-
             @SuppressWarnings("unused")
-            final net.minecraft.item.Item EXAMPLE_ITEM = Item.builder()
-                .fromBlock(EXAMPLE_BLOCK).group(BuildersBlocks.ITEM_GROUP).build(BuildersBlocks.MOD_ID, "example");
+            final Block EXAMPLE_BLOCK = Block.builder(Blocks.COBBLESTONE)
+                .mineable().asItem((item) -> item.group(ITEM_GROUP)).build(BuildersBlocks.MOD_ID, "example");
         }
+
+        Block.builder(Blocks.REDSTONE_LAMP).lightLevel((blockState) -> {
+            if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+                return (Boolean)blockState.get(Properties.LIT) ? 15 : 0;
+            return 0;
+        }).asItem((item) -> item.group(ITEM_GROUP)).build(new Identifier(MOD_ID, "schrodinger_lamp"), SchrodingerLamp::new);
     }
 }

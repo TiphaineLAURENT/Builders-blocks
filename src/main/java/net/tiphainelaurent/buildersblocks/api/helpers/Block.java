@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -105,6 +106,11 @@ public class Block extends net.minecraft.block.Block
             return build(new Identifier(namespace, name));
         }
 
+        public Block build(final Identifier blockId)
+        {
+            return build(blockId, Block::new);
+        }
+
         public List<Block> build(final String namespace, final String... blocksName)
         {
             final List<Block> blocks = new ArrayList<>(blocksName.length);
@@ -129,9 +135,14 @@ public class Block extends net.minecraft.block.Block
             return blocks;
         }
 
-        public Block build(final Identifier blockId)
+        // public Block build(final Identifier blockId)
+        // {
+        //     return build(Block.class, blockId);
+        // }
+
+        public <T extends net.minecraft.block.Block> T build(final Identifier blockId, final Function<AbstractBlock.Settings, T> constructor)
         {
-            final Block block = new Block(settings);
+            final T block = constructor.apply(settings);
             Registry.register(Registry.BLOCK, blockId, block);
 
             if (itemBuilder != null)
