@@ -18,7 +18,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-
+import net.minecraft.util.registry.Registry;
 import net.tiphainelaurent.buildersblocks.api.helpers.Block;
 
 public class BuildersBlocksClient implements ClientModInitializer
@@ -53,6 +53,19 @@ public class BuildersBlocksClient implements ClientModInitializer
 			pack.setDisplayName("Builders' Blocks resources");
 			pack.setDescription("Resources for the Builders' Blocks mod");
 
+			final String laboratoryFamilyName = "laboratory";
+			final String laboratoryBlockName = String.format("%s_checkertile", laboratoryFamilyName);
+			final Identifier laboratoryBlockId = new Identifier(BuildersBlocks.MOD_ID, laboratoryBlockName);
+			final Identifier blockModelId = new Identifier(BuildersBlocks.MOD_ID, "block/" + laboratoryBlockName);
+	
+			pack.addBlockState(laboratoryBlockId,
+				state -> state.variant("", variant -> variant.model(blockModelId)));
+			pack.addBlockModel(laboratoryBlockId,
+				model -> model.parent(new Identifier("block/cube_all")).texture("all",
+					new Identifier(BuildersBlocks.MOD_ID, String.format("block/%s/%s", laboratoryFamilyName,
+						laboratoryBlockName.substring(laboratoryBlockName.lastIndexOf("_") + 1)))));
+			pack.addItemModel(laboratoryBlockId, model -> model.parent(blockModelId));
+	
 			BuildersBlocks.FAMILIES.forEach((family) -> family.registerAll(BuildersBlocks.ITEM_GROUP, pack));
 		});
 	}

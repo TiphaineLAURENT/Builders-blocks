@@ -1,6 +1,7 @@
 package net.tiphainelaurent.buildersblocks;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -45,7 +46,7 @@ public class BuildersBlocks implements ModInitializer
         "bricks-small", "bricks-soft", "bricks-solid", "bricks-triple", "chaotic-medium", "chaotic-small", "circular",
         "cracked", "dent", "french-1", "french-2", "layers", "mosaic", "ornate", "panel", "pillar-side", "pillar-top",
         "raw", "road", "tiles-large", "tiles-medium", "tiles-small", "twisted-side", "twisted-top", "weaver");
-    public static List<FamilyRegistry> FAMILIES = List.of();
+    public static List<FamilyRegistry> FAMILIES = new LinkedList<>();
 
     // "block.buildersblocks.braid": "",
     // "block.buildersblocks.bricks-cracked": "",
@@ -227,8 +228,8 @@ public class BuildersBlocks implements ModInitializer
             final String laboratoryFamilyName = "laboratory";
             final String laboratoryBlockName = String.format("%s_checkertile", laboratoryFamilyName);
             final Identifier laboratoryBlockId = new Identifier(MOD_ID, laboratoryBlockName);
-            Block laboratoryBlock = net.tiphainelaurent.buildersblocks.api.helpers.Block.builder(Blocks.IRON_BLOCK)
-                .asItem(ITEM_GROUP).mineable().build(laboratoryBlockId);
+            Block laboratoryBlock = Block.builder(Blocks.IRON_BLOCK).asItem(ITEM_GROUP).mineable()
+                .build(laboratoryBlockId);
 
             DefaultedList<Ingredient> recipe = DefaultedList.of();
             recipe.add(Ingredient.ofItems(Items.STONE));
