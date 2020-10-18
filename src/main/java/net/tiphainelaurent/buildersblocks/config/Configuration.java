@@ -12,8 +12,10 @@ public class Configuration implements ConfigData
 {
     @Category(
         value = "Families")
+    public boolean ancient_stone = true;
     public boolean andesite = true;
     public boolean antiblock = true;
+    public boolean arcane_stone = true;
     public boolean basalt = true;
     public boolean bookshelf = true;
     public boolean bricks = true;
