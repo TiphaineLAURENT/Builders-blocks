@@ -35,17 +35,15 @@ public class BuildersBlocks implements ModInitializer
     {
         configuration = AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new).getConfig();
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment())
+        final Block.Builder builder = Block.builder(Blocks.REDSTONE_LAMP).asItem((item) -> item.group(ITEM_GROUP));
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
         {
-            @SuppressWarnings("unused")
-            final Block EXAMPLE_BLOCK = Block.builder(Blocks.COBBLESTONE)
-                .mineable().asItem((item) -> item.group(ITEM_GROUP)).build(BuildersBlocks.MOD_ID, "example");
+            builder.lightLevel((blockState) -> (Boolean)blockState.get(Properties.LIT) ? 15 : 0);
         }
-
-        Block.builder(Blocks.REDSTONE_LAMP).lightLevel((blockState) -> {
-            if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-                return (Boolean)blockState.get(Properties.LIT) ? 15 : 0;
-            return 0;
-        }).asItem((item) -> item.group(ITEM_GROUP)).build(new Identifier(MOD_ID, "schrodinger_lamp"), SchrodingerLamp::new);
+        else
+        {
+            builder.lightLevel((blockState) -> 0);
+        }
+        builder.build(new Identifier(MOD_ID, "schrodinger_lamp"), SchrodingerLamp::new);
     }
 }
