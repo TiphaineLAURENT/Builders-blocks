@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RBR",
+        "BDB",
+        "RBR"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:rotten_flesh"
+        },
+        "B": {
+            "item": "minecraft:bone_meal"
+        },
+        "D": {
+            "item": "minecraft:dirt"
+        }
+    },
+    "result": {
+        "item": "buildersblocks:fertilized_dirt",
+        "count": 1
+    }
+}

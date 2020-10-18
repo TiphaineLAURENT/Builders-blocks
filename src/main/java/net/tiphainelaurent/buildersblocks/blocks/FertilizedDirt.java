@@ -9,15 +9,22 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.StemBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 
 public class FertilizedDirt extends FarmlandBlock
 {
     public FertilizedDirt(AbstractBlock.Settings settings)
     {
         super(settings);
+    }
+
+    public void onLandedUpon(World world, BlockPos pos, Entity entity, float distance)
+    {
+        entity.handleFallDamage(distance, 1.0F);
     }
 
     private static boolean hasCrop(BlockView world, BlockPos pos)
@@ -30,9 +37,16 @@ public class FertilizedDirt extends FarmlandBlock
     {
         super.randomTick(state, world, pos, random);
         final int i = (Integer)state.get(MOISTURE);
-        if (i >= 7 && hasCrop(world, pos.up()))
+        final BlockPos up = pos.up();
+        if (i >= 7 && hasCrop(world, up))
         {
-            world.getBlockState(pos.up()).randomTick(world, pos, random);
+            final BlockState cropState = world.getBlockState(up);
+            final CropBlock crop = (CropBlock)cropState.getBlock();
+            crop.randomTick(cropState, world, up, random);
+            crop.randomTick(cropState, world, up, random);
+            crop.randomTick(cropState, world, up, random);
+            crop.randomTick(cropState, world, up, random);
+            // crop.grow(world, random, up, cropState);
         }
     }
 }
