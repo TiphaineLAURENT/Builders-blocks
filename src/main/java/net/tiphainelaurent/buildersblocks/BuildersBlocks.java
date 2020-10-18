@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.block.RedstoneLampBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.state.property.Properties;
 
 import net.tiphainelaurent.buildersblocks.api.helpers.Block;
-import net.tiphainelaurent.buildersblocks.blocks.SchrodingerLamp;
+import net.tiphainelaurent.buildersblocks.blocks.FertilizedDirt;
 import net.tiphainelaurent.buildersblocks.config.Configuration;
 
 public class BuildersBlocks implements ModInitializer
@@ -44,6 +45,8 @@ public class BuildersBlocks implements ModInitializer
         {
             builder.lightLevel((blockState) -> 0);
         }
-        builder.build(new Identifier(MOD_ID, "schrodinger_lamp"), SchrodingerLamp::new);
+        builder.build(new Identifier(MOD_ID, "schrodinger_lamp"), RedstoneLampBlock::new);
+
+        Block.builder(Blocks.FARMLAND).asItem((item) -> item.group(ITEM_GROUP)).build(new Identifier(MOD_ID, "fertilized_dirt"), FertilizedDirt::new);
     }
 }

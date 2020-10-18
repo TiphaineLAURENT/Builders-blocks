@@ -1,0 +1,28 @@
+{
+    "variants": {
+        "moisture=0": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=1": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=2": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=3": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=4": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=5": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=6": {
+            "model": "buildersblocks:block/fertilized_dirt"
+        },
+        "moisture=7": {
+            "model": "buildersblocks:block/fertilized_dirt_moist"
+        }
+    }
+}
