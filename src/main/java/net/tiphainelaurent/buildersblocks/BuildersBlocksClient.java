@@ -18,7 +18,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.registry.Registry;
+
 import net.tiphainelaurent.buildersblocks.api.helpers.Block;
 
 public class BuildersBlocksClient implements ClientModInitializer

@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "buildersblocks",
-    "version": "1.16.3-beta.8",
+    "version": "1.16.4-beta.10",
 
     "name": "Builders' Blocks",
     "description": "This is a port of the famous Chisel mod on the Fabric loader",
@@ -33,9 +33,9 @@
     ],
 
     "depends": {
-        "fabricloader": ">=0.7.4",
+        "fabricloader": ">=0.10.6",
         "fabric": "*",
-        "minecraft": ">=1.16.3"
+        "minecraft": ">=1.16.4"
     },
     "suggests": {
         "flamingo": "*"

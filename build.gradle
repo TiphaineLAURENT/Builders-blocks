@@ -8,7 +8,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = "${project.minecraft_version}-${mod_release_type}.${project.mod_version}"
 group = project.maven_group
 
 repositories {
@@ -32,7 +32,7 @@ dependencies {
 	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
 	include "com.lettuce.fudge:artifice:${project.artifice_version}"
 
-	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+	// modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 	// modRuntime "io.github.nuclearfarts:cbt:${project.connected_block_textures_version}"
 }
 
