@@ -268,13 +268,13 @@ public class Block extends net.minecraft.block.Block
 
         public Block.Builder lightLevel(final int lightLevel)
         {
-            settings.luminance(lightLevel);
+            settings.lightLevel(lightLevel);
             return this;
         }
 
         public Block.Builder lightLevel(final ToIntFunction<BlockState> levelFunction)
         {
-            settings.luminance(levelFunction);
+            settings.lightLevel(levelFunction);
             return this;
         }
 
